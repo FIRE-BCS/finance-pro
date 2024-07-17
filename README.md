@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+To view main branch online: https://outliers-financepro.netlify.app/ 
+
+Otherwise, run the development server:
 
 ```bash
 npm run dev
