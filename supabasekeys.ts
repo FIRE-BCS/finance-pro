@@ -1,0 +1,2 @@
+export const supabaseUrl = "https://mxsmfsloonleakgmynob.supabase.co"
+export const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im14c21mc2xvb25sZWFrZ215bm9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjExOTU0NDUsImV4cCI6MjAzNjc3MTQ0NX0.MOUUhCNLWCLfaQAci8yUUmTzRQrBaKVtA0L0qlVCByI"
