@@ -14,8 +14,10 @@ import { login } from './actions';
 import Image from 'next/image';
 import theme from '../../utils/theme';
 import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Dialog, DialogActions, Popover } from '@mui/material';
 import { useSnackbar } from 'notistack';
+import ForgotPassword from './ForgetPassword';
+import ForgetPassword from './ForgetPassword';
 
 function Copyright(props: any) {
   return (
@@ -36,6 +38,7 @@ export default function SignIn() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const validateEmail = (value: string) => {
@@ -77,6 +80,15 @@ export default function SignIn() {
       }
     }
   };
+
+  const handleClickOpen = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -135,9 +147,19 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link component="button" variant="body2" onClick={handleClickOpen}>
                   Forgot password?
                 </Link>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <ForgetPassword />
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button type="submit">Subscribe</Button>
+                  </DialogActions>
+                </Dialog>
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
