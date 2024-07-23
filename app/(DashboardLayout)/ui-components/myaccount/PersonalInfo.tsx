@@ -11,9 +11,20 @@ import {
   TableContainer,
   Rating,
   Grid,
+  Button,
 } from "@mui/material";
 import BaseCard from '../../components/shared/BaseCard';
 
+
+// import { createClient } from '@supabase/supabase-js'
+// const supabaseUrl = 'https://mxsmfsloonleakgmynob.supabase.co'
+// const supabaseKey = process.env.SUPABASE_KEY
+// const supabase = createClient(supabaseUrl, supabaseKey)
+
+
+// let { data: Customer, error } = await supabase
+//   .from('Customer')
+//   .select('firstName')
 
 
 export default function PersonalInfo() {
@@ -21,28 +32,34 @@ export default function PersonalInfo() {
   const users = [
     {
       id: "1",
-      firstName: "Sunil Joshi",
-      lastName: "Web Designer",
-      DOB: "Elite Admin",
-      email: "Low",
+      firstName: "Julia",
+      lastName: "Yeo",
+      DOB: "09/02/1978",
+      email: "yeo.julia@email.com",
     },
   ];
+
+  const user = users[0];
+
   return (
 
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
-        <BaseCard title="Personal Information">
+        <BaseCard title="Personal Information"> 
+        
           <Box
             sx={{
               '& > legend': { mt: 2 },
             }}
           >
-            <Typography component="legend">First Name:  </Typography>
-            <Typography component="legend">Last Name</Typography>
-            <Typography component="legend">Date of Birth</Typography>
-            <Typography component="legend">Email</Typography>
+            <Typography component="legend">First Name: {user.firstName} </Typography>
+            <Typography component="legend">Last Name: {user.lastName}</Typography>
+            <Typography component="legend">Date of Birth: {user.DOB}</Typography>
+            <Typography component="legend">Email: {user.email}</Typography>
           </Box>
-          
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}}>
+                Edit
+              </Button>
         </BaseCard>
       </Grid>
     </Grid>

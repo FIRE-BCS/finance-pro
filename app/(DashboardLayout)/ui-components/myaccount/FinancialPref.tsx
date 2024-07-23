@@ -11,6 +11,7 @@ import {
   TableContainer,
   Rating,
   Grid,
+  Button,
 } from "@mui/material";
 import BaseCard from '../../components/shared/BaseCard';
 
@@ -18,29 +19,34 @@ import BaseCard from '../../components/shared/BaseCard';
 
 export default function FinancialInfo() {
   // const [value, setValue] = React.useState<number | null>(2);
-  const finance = [
+  const finances = [
     {
       id: "1",
-      firstName: "Sunil Joshi",
-      lastName: "Web Designer",
+      firstName: "Julia",
+      lastName: "Yeo",
       riskTolerance: "High",
       financialGoal: "Housing",
     },
   ];
+
+  const finance = finances[0];
+
   return (
 
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
-        <BaseCard title="Financial Information">
+        <BaseCard title="Financial Preferences">
           <Box
             sx={{
               '& > legend': { mt: 2 },
             }}
           >
-            <Typography component="legend">Risk Tolerance:  </Typography>
-            <Typography component="legend">Financial Goal</Typography>
+            <Typography component="legend">Risk Tolerance: {finance.riskTolerance} </Typography>
+            <Typography component="legend">Financial Goal: {finance.financialGoal}</Typography>
           </Box>
-          
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}}>
+                Edit
+              </Button>
         </BaseCard>
       </Grid>
     </Grid>

@@ -1,5 +1,5 @@
 'use client';
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import BaseCard from '../../components/shared/BaseCard';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
@@ -16,11 +16,13 @@ const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 
 import PersonalInfo from "./PersonalInfo";
-import FinancialInfo from "./FinancialInfo";
+import FinancialInfo from "./FinancialPref";
 
 const Tables = () => {
   return (
     <Box mt={3}>
+      <Typography mt="0" variant="h2">My Account</Typography>
+     <br></br>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={10}>
           <PersonalInfo/>
