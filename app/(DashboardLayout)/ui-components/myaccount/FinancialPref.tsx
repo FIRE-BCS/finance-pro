@@ -44,9 +44,9 @@ export default function FinancialInfo() {
             <Typography component="legend">Risk Tolerance: {finance.riskTolerance} </Typography>
             <Typography component="legend">Financial Goal: {finance.financialGoal}</Typography>
           </Box>
-          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}}>
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/ui-components/editFinancial">
                 Edit
-              </Button>
+          </Button>
         </BaseCard>
       </Grid>
     </Grid>

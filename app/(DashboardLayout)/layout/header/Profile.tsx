@@ -144,18 +144,18 @@ const Profile = () => {
         <Box pt={0}>
 
           <List>
-            <ListItemButton component="a" href="#">
+            {/* <ListItemButton component="a" href="#">
               <ListItemText primary="Edit Profile" />
+            </ListItemButton> */}
+            <ListItemButton component="a" href="/ui-components/myaccount">
+              <ListItemText primary="My Account" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
-              <ListItemText primary="Account" />
-            </ListItemButton>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a" href="/privacy">
               <ListItemText primary="Change Password" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
+            {/* <ListItemButton component="a" href="#">
               <ListItemText primary="My Settings" />
-            </ListItemButton>
+            </ListItemButton> */}
           </List>
 
         </Box>
