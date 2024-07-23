@@ -1,6 +1,6 @@
 'use client';
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import BaseCard from '../../components/shared/BaseCard';
+import BaseCard from '../components/shared/BaseCard';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const Item = styled(Paper)(({ theme }) => ({
