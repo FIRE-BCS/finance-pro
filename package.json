@@ -1,6 +1,6 @@
 {
-  "name": "flexy-next-free",
-  "version": "2.0.0",
+  "name": "finance-pro",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
