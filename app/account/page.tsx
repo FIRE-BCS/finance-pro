@@ -4,68 +4,97 @@ import {
     Grid,
     Stack,
     TextField,
+    Checkbox,
+    FormGroup,
+    FormControlLabel,
+    RadioGroup,
+    Radio,
+    FormLabel,
+    FormControl,
     Button,
 } from '@mui/material'
-import {
-    LocalizationProvider,
-    DatePicker,
-} from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import 'dayjs/locale/en-gb';
-import BaseCard from '../(DashboardLayout)/components/shared/BaseCard';
-// import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-// const Item = styled(Paper)(({ theme }) => ({
-//     ...theme.typography.body1,
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//     height: 60,
-//     lineHeight: '60px',
-//   }));
-// 
-// const darkTheme = createTheme({ palette: { mode: 'dark' } });
-// const lightTheme = createTheme({ palette: { mode: 'light' } });
+import BaseCard from '../../components/shared/BaseCard';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body1,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height: 60,
+    lineHeight: '60px',
+  }));
+  
+const darkTheme = createTheme({ palette: { mode: 'dark' } });
+const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-export default function Account(){
+const Forms = () => {
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
-          <BaseCard title="Account Information">
+          <BaseCard title="Form Layout">
             <>
             <Stack spacing={3}>
               <TextField
-                id="name-full"
-                label="Full Name"
+                id="name-basic"
+                label="Name"
                 variant="outlined"
-                defaultValue="Get from supabase"
+                defaultValue="Nirav Joshi"
+              />
+              <TextField id="email-basic" label="Email" variant="outlined" />
+              <TextField
+                id="pass-basic"
+                label="Password"
+                type="password"
+                variant="outlined"
               />
               <TextField
-                id="name-user"
-                label="Username"
-                variant="outlined"
-                defaultValue="Get from supabase"
+                id="outlined-multiline-static"
+                label="Text Area"
+                multiline
+                rows={4}
+                defaultValue="Default Value"
               />
               <TextField
-                id="email-basic"
-                label="Email"
+                error
+                id="er-basic"
+                label="Error"
+                defaultValue="ad1avi"
                 variant="outlined"
-                defaultValue="Get from supabase"
               />
-              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-                <DemoContainer components={['DatePicker']}>
-                    <DatePicker 
-                        label="Date of Birth"
-                        slotProps={{ textField: { fullWidth: true } }}
-                        // value={get from supabase}
-                    />
-                </DemoContainer>
-              </LocalizationProvider>
-              <TextField
-                id="address"
-                label="Address"
-                variant="outlined"
-                defaultValue="Get from supabase"
-              />
+              <FormGroup>
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="Terms & Condition"
+                />
+                <FormControlLabel
+                  disabled
+                  control={<Checkbox />}
+                  label="Disabled"
+                />
+              </FormGroup>
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Stack>
             <br />
             <Button>
@@ -74,6 +103,26 @@ export default function Account(){
             </>
           </BaseCard>
         </Grid>
+  
+        <Grid item xs={12} lg={12}>
+          <BaseCard title="Form Design Type">
+            <Stack spacing={3} direction="row">
+              <TextField
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+              />
+              <TextField id="filled-basic" label="Filled" variant="filled" />
+              <TextField
+                id="standard-basic"
+                label="Standard"
+                variant="standard"
+              />
+            </Stack>
+          </BaseCard>
+        </Grid>
       </Grid>
     );
   };
+  
+  export default Forms;
