@@ -12,8 +12,10 @@ import {
   Rating,
   Grid,
   Button,
+  Link,
 } from "@mui/material";
-import BaseCard from '../../components/shared/BaseCard';
+import BaseCard from '../components/shared/BaseCard';
+import { useRouter } from "next/navigation";
 
 
 // import { createClient } from '@supabase/supabase-js'
@@ -29,6 +31,7 @@ import BaseCard from '../../components/shared/BaseCard';
 
 export default function PersonalInfo() {
   // const [value, setValue] = React.useState<number | null>(2);
+  const router = useRouter();
   const users = [
     {
       id: "1",
@@ -45,8 +48,8 @@ export default function PersonalInfo() {
 
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
-        <BaseCard title="Personal Information"> 
-        
+        <BaseCard title="Personal Information">
+
           <Box
             sx={{
               '& > legend': { mt: 2 },

@@ -13,7 +13,7 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-import BaseCard from '../../components/shared/BaseCard';
+import BaseCard from '../components/shared/BaseCard';
 
 
 
