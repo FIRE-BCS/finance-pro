@@ -13,7 +13,7 @@ import {
     FormControl,
     Button,
 } from '@mui/material'
-import BaseCard from '../../components/shared/BaseCard';
+import BaseCard from '../(DashboardLayout)/components/shared/BaseCard';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
@@ -98,7 +98,7 @@ const Forms = () => {
             </Stack>
             <br />
             <Button>
-              Submit
+              Submits
             </Button>
             </>
           </BaseCard>

@@ -16,31 +16,29 @@ import BaseCard from '../../components/shared/BaseCard';
 
 
 
-export default function PersonalInfo() {
+export default function FinancialInfo() {
   // const [value, setValue] = React.useState<number | null>(2);
-  const users = [
+  const finance = [
     {
       id: "1",
       firstName: "Sunil Joshi",
       lastName: "Web Designer",
-      DOB: "Elite Admin",
-      email: "Low",
+      riskTolerance: "High",
+      financialGoal: "Housing",
     },
   ];
   return (
 
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
-        <BaseCard title="Personal Information">
+        <BaseCard title="Financial Information">
           <Box
             sx={{
               '& > legend': { mt: 2 },
             }}
           >
-            <Typography component="legend">First Name:  </Typography>
-            <Typography component="legend">Last Name</Typography>
-            <Typography component="legend">Date of Birth</Typography>
-            <Typography component="legend">Email</Typography>
+            <Typography component="legend">Risk Tolerance:  </Typography>
+            <Typography component="legend">Financial Goal</Typography>
           </Box>
           
         </BaseCard>
