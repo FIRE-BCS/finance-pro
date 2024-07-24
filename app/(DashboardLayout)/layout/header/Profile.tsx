@@ -44,7 +44,7 @@ const Profile = () => {
   const logout = async () => {
     const supabase = createClient()
     const { error } = await supabase.auth.signOut()
-    router.push('/')
+    router.push('/login')
     enqueueSnackbar("Logout successful", { variant: "success" });
   }
 
