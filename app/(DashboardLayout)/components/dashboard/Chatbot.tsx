@@ -1,79 +1,161 @@
-// "use client";
+import { useState } from "react";
+import {
+  Box,
+  Card,
+  CardContent,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+import { Send } from "@mui/icons-material";
 
-// import { useChat } from "ai/react";
-// import { ChatInput, ChatMessages } from "./ui/chat";
-
-// export default function ChatbotUI() {
-// 	const { messages, input, isLoading, handleSubmit, handleInputChange, reload, stop } = useChat();
-
-// 	return (
-// 		<main className="flex min-h-screen flex-col items-center gap-10 p-24 bg-gradient-to-bl from-slate-300 to-blue-50">
-// 			{/* <h1 className="font-bold">Finance Recommender</h1> */}
-//             {/* <ChatMessages messages={messages} isLoading={isLoading} reload={reload} stop={stop} /> */}
-// 			<ChatInput
-// 				input={input}
-// 				handleSubmit={handleSubmit}
-// 				handleInputChange={handleInputChange}
-// 				isLoading={isLoading}
-// 				multiModal
-// 			/>
-// 		</main>
-// 	);
-// }
-
-
-
-// // Sample App 
-
-import React, { useState } from 'react';
-import './ChatApp.css';
-import BaseCard from "../shared/DashboardCard";
-
-
-const ChatApp = () => {
+export default function Home() {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
+  const [messageSent, setMessageSent] = useState(false);
 
   const handleSend = () => {
-    if (input.trim()) {
-      setMessages([...messages, { text: input, sender: 'user' }]);
-      setInput('');
-      // Simulate a response from ChatGPT
+    if (input.trim() !== "") {
+      setMessages([...messages, { type: "user", text: input }]);
       setTimeout(() => {
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: 'This is a response', sender: 'bot' },
+          { type: "bot", text: "This is a default response." },
         ]);
       }, 1000);
+      setMessageSent(true);
+      setInput("");
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSend();
+    }
+  };
+
+  const handleCardClick = (text) => {
+    setInput(text);
+    handleSend();
+  };
+
   return (
-    <div className="chat-container">
-      <div className="chat-header">ChatGPT Interface</div>
-      <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div key={index} className={`chat-message ${message.sender}`}>
-            {message.text}
-          </div>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+      sx={{
+        padding: "30px",
+        boxSizing: "border-box",
+      }}
+    >
+      <Box
+        display="flex"
+        justifyContent="center"
+        gap="20px"
+        width="100%"
+        maxWidth="800px"
+        marginBottom="20px"
+        sx={{
+          display: messageSent ? "none" : "flex", // Hide if input is present
+        }}
+      >
+        {[
+          "Ask abt finance decision 1",
+          "Ask abt finance decision 2",
+          "Ask abt finance decision 3",
+        ].map((text, index) => (
+          <Card
+            key={index}
+            sx={{
+              minWidth: 150,
+              maxWidth: 200,
+              textAlign: "center",
+              padding: "10px",
+              boxShadow: 3,
+              cursor: "pointer",
+            }}
+            onClick={() => handleCardClick(text)}
+          >
+            <CardContent>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                {/* Add icons here if needed */}
+                <Box sx={{ height: 50 }} />
+                <Box>{text}</Box>
+              </Box>
+            </CardContent>
+          </Card>
         ))}
-      </div>
-      <div className="chat-input-container">
-      <button className="attachment-button">📎</button>
-
-        <input
-          type="text"
-          className="chat-input"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-        />
-        <button className="chat-send-button" onClick={handleSend}>
-          ➤
-        </button>
-      </div>
-    </div>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        sx={{
+          width: "100%",
+          maxWidth: "600px",
+        }}
+      >
+        <List sx={{ width: "100%", mb: 2 }}>
+          {messages.map((message, index) => (
+            <ListItem
+              key={index}
+              sx={{
+                justifyContent:
+                  message.type === "user" ? "flex-end" : "flex-start",
+              }}
+            >
+              <ListItemText
+                primary={message.text}
+                sx={{
+                  bgcolor: message.type === "user" ? "#e0f7fa" : "#f1f8e9",
+                  borderRadius: 2,
+                  padding: "10px",
+                }}
+              />
+            </ListItem>
+          ))}
+        </List>
+        <Box
+          display="flex"
+          alignItems="center"
+          sx={{
+            width: "100%",
+            backgroundColor: "#fff",
+            boxShadow: 1,
+            borderRadius: 2,
+            padding: "2px 4px",
+          }}
+        >
+          <InputBase
+            sx={{
+              ml: 1,
+              flex: 1,
+              transition: "width 0.5s ease", // Example transition
+              width: input ? "100%" : "0%", // Conditionally adjust width
+              overflow: "hidden", // Hide overflow when collapsed
+            }}
+            placeholder="Message ChatGPT"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <IconButton type="button" sx={{ p: "10px" }} onClick={handleSend}>
+            <Send />
+          </IconButton>
+        </Box>
+      </Box>
+    </Box>
   );
-};
+}
 
-export default ChatApp;
+// Modifications:
+// 1. the chat bar cnt scroll and always on the same position on the screen
+// 2. the input will load and slowly show
+// 3. the response will load 1 second and slowly show
+// 4. the grid cards will disappear when there is 1 input
+// 5. when i change screen and come back, the input will still be there
