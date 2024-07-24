@@ -175,7 +175,7 @@ export default function SignIn() {
                 <Link
                   component="button"
                   variant="body2"
-                  onClick={handleClickOpen}
+                  onClick={() => handleClickOpen}
                 >
                   Forgot password?
                 </Link>

@@ -74,7 +74,7 @@ const ForgotPassword: React.FC = () => {
               variant="contained"
               color="primary"
               sx={{ mt: 2 }}
-              onClick={handleSubmit}
+              onClick={() => handleSubmit}
             >
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
