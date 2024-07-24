@@ -40,28 +40,32 @@ const ForgotPassword: React.FC = () => {
         <DialogContentText>
           Instructions to reset your password will be sent to your email
         </DialogContentText>
-        <TextField
-          margin="normal"
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={!!emailError}
-          helperText={emailError}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2 }}
-        >
-          Send Reset Link
-        </Button>
+        <Box component="form" onSubmit={handleSubmit} noValidate>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={!!emailError}
+            helperText={emailError}
+          />
+          <DialogActions>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              onClick={handleSubmit}
+            >
+              Send Reset Link
+            </Button>
+          </DialogActions>
+        </Box>
       </DialogContent>
     </>
   );

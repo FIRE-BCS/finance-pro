@@ -82,7 +82,7 @@ export default function SignIn() {
   };
 
   const handleClickOpen = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault
+    event.preventDefault()
     setOpen(true)
   }
 
@@ -155,10 +155,6 @@ export default function SignIn() {
                   onClose={handleClose}
                 >
                   <ForgetPassword />
-                  <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">Subscribe</Button>
-                  </DialogActions>
                 </Dialog>
               </Grid>
               <Grid item>
