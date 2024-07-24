@@ -1,34 +1,34 @@
-'use client'
-import { Grid, Box } from '@mui/material';
-import PageContainer from './components/container/PageContainer';
-// components
-import SalesOverview from './components/dashboard/SalesOverview';
-import DailyActivity from './components/dashboard/DailyActivity';
-import ProductPerformance from './components/dashboard/ProductPerformance';
-import BlogCard from './components/dashboard/Blog';
+"use client";
+import { Grid, Box } from "@mui/material";
+import PageContainer from "./components/container/PageContainer";
+import Investments from "./components/dashboard/Investments";
+import FinDisplay from "./components/dashboard/FinDisplay";
 
 const Dashboard = () => {
   return (
-    <PageContainer title="Dashboard" description="this is Dashboard">
-    <Box mt={3}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} lg={12}>
-          <SalesOverview />
+    <PageContainer title="Dashboard">
+      <Box mt={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={4}>
+            <FinDisplay title="Savings" amount={1000} />
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <FinDisplay title="Fixed Deposits" amount={1000} />
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <FinDisplay title="Loans" amount={1000} />
+          </Grid>
+
+          <Grid item xs={12} lg={6}>
+            <Investments />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <Investments />
+          </Grid>
         </Grid>
-        {/* ------------------------- row 1 ------------------------- */}
-        <Grid item xs={12} lg={4}>
-          <DailyActivity />
-        </Grid>
-        <Grid item xs={12} lg={8}>
-          <ProductPerformance />
-        </Grid>
-        <Grid item xs={12} lg={12}>
-          <BlogCard />
-        </Grid>
-      </Grid>
-    </Box>
-  </PageContainer>
-  )
-}
+      </Box>
+    </PageContainer>
+  );
+};
 
 export default Dashboard;

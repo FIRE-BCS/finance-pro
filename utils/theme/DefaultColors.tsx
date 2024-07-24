@@ -2,7 +2,6 @@ import { createTheme } from "@mui/material/styles";
 import { DM_Sans } from "next/font/google";
 import theme from "../theme";
 
-
 export const dm = DM_Sans({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
@@ -14,13 +13,13 @@ const baselightTheme = createTheme({
   direction: "ltr",
   palette: {
     primary: {
-      main: "#03c9d7",
+      main: "#0473ea",
       light: "#e5fafb",
-      dark: "#05b2bd",
+      dark: "#20acff",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#fb9678",
+      main: "#38d200",
       light: "#fcf1ed",
       dark: "#e67e5f",
       contrastText: "#ffffff",
@@ -49,12 +48,6 @@ const baselightTheme = createTheme({
       dark: "#dcb014",
       contrastText: "#ffffff",
     },
-    // purple: {
-    //   A50: "#EBF3FE",
-    //   A100: "#6610f2",
-    //   A200: "#557fb9",
-    //   contrastText: "#ffffff",
-    // },
     grey: {
       100: "#F2F6FA",
       200: "#EAEFF4",
@@ -70,7 +63,7 @@ const baselightTheme = createTheme({
     action: {
       disabledBackground: "rgba(73,82,88,0.12)",
       hoverOpacity: 0.02,
-      hover: "#f6f9fc",
+      hover: "#e5e5e5",
     },
     divider: "#e5eaef",
     background: {
@@ -125,8 +118,6 @@ const baselightTheme = createTheme({
     },
   },
   components: {
-
-  
     MuiCssBaseline: {
       styleOverrides: {
         ".MuiPaper-elevation9, .MuiPopover-root .MuiPaper-elevation": {
