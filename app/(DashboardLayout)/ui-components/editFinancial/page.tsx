@@ -1,4 +1,6 @@
 'use client';
+
+import { useState } from 'react';
 import {
     Paper,
     Grid,
@@ -23,6 +25,17 @@ import BaseCard from '../../components/shared/BaseCard';
 // const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 export default function FinancialsForm(){
+
+    const [newTrading, setNewTrading] = useState("");
+    const [newLoan, setNewLoan] = useState("");
+    const [newInvestment, setNewInvestment] = useState("");
+    const [newFD, setNewFD] = useState("");
+    const [newIncome, setNewIncome] = useState("");
+    const [tradingError, setTradingError] = useState(false);
+    const [loanError, setLoanError] = useState(false);
+    const [investmentError, setInvestmentError] = useState(false);
+    const [fdError, setFDError] = useState(false);
+    const [incomeError, setIncomeError] = useState(false);
 
     const riskTolerance = [
         {
@@ -57,23 +70,73 @@ export default function FinancialsForm(){
           <BaseCard title="Edit Financial Preferences">
             <>
             <Stack spacing={3}>
+            <TextField
+                id="account-trading"
+                label="Trading Account No."
+                variant="outlined"
+                defaultValue="111000000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^111\d{6}$/).test(e.target.value)){
+                    setTradingError(true)
+                  }
+                  else{
+                    setTradingError(false)
+                    setNewTrading(e.target.value)
+                  }
+                }}
+                error={tradingError}
+                helperText={tradingError? "Trading account number must begin with '111' with 6 other digits following it":""}
+              />
               <TextField
                 id="account-loan"
                 label="Loan Account No."
                 variant="outlined"
-                defaultValue="Get from supabase"
+                defaultValue="222000000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^222\d{6}$/).test(e.target.value)){
+                    setLoanError(true)
+                  }
+                  else{
+                    setLoanError(false)
+                    setNewLoan(e.target.value)
+                  }
+                }}
+                error={loanError}
+                helperText={loanError? "Loan account number must begin with '222' with 6 other digits following it":""}
+              />
+              <TextField
+                id="account-fd"
+                label="Fixed Deposit Account No."
+                variant="outlined"
+                defaultValue="333000000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^333\d{6}$/).test(e.target.value)){
+                    setFDError(true)
+                  }
+                  else{
+                    setFDError(false)
+                    setNewFD(e.target.value)
+                  }
+                }}
+                error={fdError}
+                helperText={fdError? "Fixed deposit account number must begin with '333' with 6 other digits following it":""}
               />
               <TextField
                 id="account-investment"
                 label="Investment Account No."
                 variant="outlined"
-                defaultValue="Get from supabase"
-              />
-               <TextField
-                id="account-fd"
-                label="Fixed Deposit Account No."
-                variant="outlined"
-                defaultValue="Get from supabase"
+                defaultValue="444000000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^444\d{6}$/).test(e.target.value)){
+                    setInvestmentError(true)
+                  }
+                  else{
+                    setInvestmentError(false)
+                    setNewInvestment(e.target.value)
+                  }
+                }}
+                error={investmentError}
+                helperText={investmentError? "Investment account number must begin with '444' with 6 other digits following it":""}
               />
               <TextField
                 id="income-yearly"
@@ -82,14 +145,25 @@ export default function FinancialsForm(){
                 InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
                 }}
-                defaultValue="Get from supabase"
+                defaultValue="100000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^\d+$/).test(e.target.value)){
+                    setIncomeError(true)
+                  }
+                  else{
+                    setIncomeError(false)
+                    setNewIncome(e.target.value)
+                  }
+                }}
+                error={incomeError}
+                helperText={incomeError? "Yearly income field must only consist of numerical digits":""}
               />
                <TextField
                 id="risk-tolerance"
                 select
                 label="Risk Tolerance"
                 variant="outlined"
-                defaultValue="Get from supabase"
+                defaultValue="High"
                 >
                     {riskTolerance.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -102,7 +176,7 @@ export default function FinancialsForm(){
                 select
                 label="Financial Goal"
                 variant="outlined"
-                defaultValue="Get from supabase"
+                defaultValue="Housing"
               >
                 {financialGoals.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -117,6 +191,10 @@ export default function FinancialsForm(){
             </Button>
             </>
           </BaseCard>
+          <br/>
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/myaccount">
+                Back
+          </Button>
         </Grid>
       </Grid>
     );

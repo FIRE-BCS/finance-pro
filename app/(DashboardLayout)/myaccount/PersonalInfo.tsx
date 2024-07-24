@@ -60,7 +60,8 @@ export default function PersonalInfo() {
             <Typography component="legend">Date of Birth: {user.DOB}</Typography>
             <Typography component="legend">Email: {user.email}</Typography>
           </Box>
-          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/ui-components/editFinancial">
+          <br/>
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/ui-components/editPersonal">
                 Edit
           </Button>
         </BaseCard>

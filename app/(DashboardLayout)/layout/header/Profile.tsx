@@ -147,10 +147,10 @@ const Profile = () => {
             {/* <ListItemButton component="a" href="#">
               <ListItemText primary="Edit Profile" />
             </ListItemButton> */}
-            <ListItemButton component="a" href="/ui-components/myaccount">
+            <ListItemButton component="a" href="/myaccount">
               <ListItemText primary="My Account" />
             </ListItemButton>
-            <ListItemButton component="a" href="/privacy">
+            <ListItemButton component="a" href="/changePassword">
               <ListItemText primary="Change Password" />
             </ListItemButton>
             {/* <ListItemButton component="a" href="#">

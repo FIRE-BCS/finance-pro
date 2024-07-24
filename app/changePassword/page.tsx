@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import "../global.css";
 import {
@@ -17,6 +18,7 @@ import {
 import BaseCard from '../(DashboardLayout)/components/shared/BaseCard';
 import RootLayout from '../(DashboardLayout)/layout';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
     textAlign: 'center',
@@ -28,9 +30,10 @@ const Item = styled(Paper)(({ theme }) => ({
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-export default function Privacy(){
+export default function ChangePassword(){
 
   const currentPassword = "password"
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [error, setError] = useState(false)
@@ -73,7 +76,7 @@ export default function Privacy(){
                     onChange={(e) => {
                       if (e.target.value === currentPassword){
                         setError(true)
-                        setErrorMessage("New password cannot be the same as old password")
+                        setErrorMessage("New password cannot be the same as current password")
                       }
                       else if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).test(e.target.value)){
                         setError(true)
