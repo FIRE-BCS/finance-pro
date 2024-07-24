@@ -91,9 +91,10 @@ export default function SignIn() {
     }
   };
 
-  const handleClickOpen = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleClickOpen = (event: React.MouseEvent<Element, MouseEvent>) => {
     event.preventDefault();
     setOpen(true);
+    return false;
   };
 
   const handleClose = () => {
@@ -175,12 +176,12 @@ export default function SignIn() {
                 <Link
                   component="button"
                   variant="body2"
-                  onClick={() => handleClickOpen}
+                  onClick={(e) => handleClickOpen(e)}
                 >
                   Forgot password?
                 </Link>
                 <Dialog open={open} onClose={handleClose}>
-                  <ForgetPassword />
+                  <ForgetPassword setOpen={setOpen} />
                 </Dialog>
               </Grid>
               <Grid item>
