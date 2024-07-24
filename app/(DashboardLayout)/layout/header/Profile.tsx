@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import Link from "next/link";
 import {
   Box,
   Menu,
@@ -13,17 +12,19 @@ import {
   List,
   ListItemText,
 } from "@mui/material";
-
-import { Stack } from "@mui/system";
 import {
   IconChevronDown,
   IconCreditCard,
   IconCurrencyDollar,
-  IconMail,
   IconShield,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { createClient } from "../../../../utils/supabase/client";
+import { useSnackbar } from "notistack";
 
 const Profile = () => {
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
@@ -39,6 +40,13 @@ const Profile = () => {
   const errorlight = theme.palette.error.light;
   const success = theme.palette.success.main;
   const successlight = theme.palette.success.light;
+
+  const logout = async () => {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signOut()
+    router.push('/login')
+    enqueueSnackbar("Logout successful", { variant: "success" });
+  }
 
   /*profile data*/
   const profiledata = [
@@ -136,7 +144,7 @@ const Profile = () => {
             width: "360px",
             p: 2,
             pb: 2,
-            pt:0
+            pt: 0
           },
         }}
       >
@@ -161,7 +169,7 @@ const Profile = () => {
         </Box>
         <Divider />
         <Box mt={2}>
-          <Button fullWidth variant="contained" color="primary">
+          <Button fullWidth variant="contained" color="primary" onClick={() => logout()}>
             Logout
           </Button>
         </Box>
