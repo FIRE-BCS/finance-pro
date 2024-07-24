@@ -152,10 +152,3 @@ export default function Home() {
     </Box>
   );
 }
-
-// Modifications:
-// 1. the chat bar cnt scroll and always on the same position on the screen
-// 2. the input will load and slowly show
-// 3. the response will load 1 second and slowly show
-// 4. the grid cards will disappear when there is 1 input
-// 5. when i change screen and come back, the input will still be there
