@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
-import { useSnackbar } from 'notistack';
+import React, { useState } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  CircularProgress,
+} from "@mui/material";
+import { useSnackbar } from "notistack";
+import { forgetPassword } from "./actions";
 
 const ForgotPassword: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [emailError, setEmailError] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const validateEmail = (value: string): string => {
     if (!value) {
-      return 'Email is required';
+      return "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(value)) {
-      return 'Invalid email address';
+      return "Invalid email address";
     }
-    return '';
+    return "";
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,11 +35,14 @@ const ForgotPassword: React.FC = () => {
 
     if (!emailValidation) {
       try {
-        // Simulate an API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        enqueueSnackbar('Password reset link sent', { variant: 'success' });
+        setLoading(true);
+        await forgetPassword(email);
+        enqueueSnackbar("Password reset link sent", { variant: "success" });
       } catch (error) {
-        enqueueSnackbar('Failed to send reset link', { variant: 'error' });
+        enqueueSnackbar("Failed to send reset link", { variant: "error" });
+        console.log(error)
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -62,7 +76,11 @@ const ForgotPassword: React.FC = () => {
               sx={{ mt: 2 }}
               onClick={handleSubmit}
             >
-              Send Reset Link
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Send Reset Link"
+              )}
             </Button>
           </DialogActions>
         </Box>

@@ -1,62 +1,72 @@
-'use client'
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
-import { login } from './actions';
-import Image from 'next/image';
-import theme from '../../utils/theme';
-import { useState } from 'react';
-import { CircularProgress, Dialog, DialogActions, Popover } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import ForgotPassword from './ForgetPassword';
-import ForgetPassword from './ForgetPassword';
+"use client";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { ThemeProvider } from "@mui/material/styles";
+import { login } from "./actions";
+import Image from "next/image";
+import theme from "../../utils/theme";
+import { useState } from "react";
+import {
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  Popover,
+} from "@mui/material";
+import { useSnackbar } from "notistack";
+import ForgotPassword from "./ForgetPassword";
+import ForgetPassword from "./ForgetPassword";
 
 function Copyright(props: any) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="sc.com">
         Standard Chartered Bank Singapore
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const validateEmail = (value: string) => {
     if (!value) {
-      return 'Email is required';
+      return "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(value)) {
-      return 'Invalid email address';
+      return "Invalid email address";
     }
-    return '';
+    return "";
   };
 
   const validatePassword = (value: string) => {
     if (!value) {
-      return 'Password is required';
+      return "Password is required";
     } else if (value.length < 8) {
-      return 'Password must be at least 8 characters';
+      return "Password must be at least 8 characters";
     }
-    return '';
+    return "";
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -69,26 +79,26 @@ export default function SignIn() {
     setPasswordError(passwordValidation);
 
     if (!emailValidation && !passwordValidation) {
-      setLoading(true);
       try {
+        setLoading(true);
         await login(email, password);
-        enqueueSnackbar('Login successful', { variant: 'success' });
+        enqueueSnackbar("Login successful", { variant: "success" });
       } catch (error) {
-        enqueueSnackbar('Login Failed', { variant: 'error' });
+        enqueueSnackbar("Login Failed", { variant: "error" });
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
   };
 
   const handleClickOpen = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setOpen(true)
-  }
+    event.preventDefault();
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -97,13 +107,24 @@ export default function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Image src="sc_logo.svg" alt="logo" height={80} width={210} priority />
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 5 }}>
+          <Image
+            src="sc_logo.svg"
+            alt="logo"
+            height={80}
+            width={210}
+            priority
+          />
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 5 }}
+          >
             <TextField
               margin="normal"
               required
@@ -143,17 +164,22 @@ export default function SignIn() {
               color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Sign In"
+              )}
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link component="button" variant="body2" onClick={handleClickOpen}>
+                <Link
+                  component="button"
+                  variant="body2"
+                  onClick={handleClickOpen}
+                >
                   Forgot password?
                 </Link>
-                <Dialog
-                  open={open}
-                  onClose={handleClose}
-                >
+                <Dialog open={open} onClose={handleClose}>
                   <ForgetPassword />
                 </Dialog>
               </Grid>
