@@ -1,12 +1,35 @@
 import { Box, Typography } from "@mui/material";
 import DashboardCard from "../shared/DashboardCard";
+import { getFixedDAmount } from "../../../../utils/supabase/clientApi";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
-  amount: number;
 };
 
-const FinDisplay = ({ title, amount }: Props) => {
+const FinDisplay: React.FC<Props> = ({ title }) => {
+  const [amount, setAmount] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchAmount = async () => {
+      const data = window.sessionStorage.getItem("data");
+      const customerData = data ? JSON.parse(data) : { id: 0 };
+
+      let fetchedAmount = 0;
+      if (title === "Savings") {
+        fetchedAmount = 12313;
+      } else if (title === "Fixed Deposits") {
+        fetchedAmount = await getFixedDAmount(customerData.id);
+      } else {
+        fetchedAmount = 919919;
+      }
+
+      setAmount(fetchedAmount);
+    };
+
+    fetchAmount();
+  }, [title]);
+
   return (
     <DashboardCard>
       <Box height={100}>

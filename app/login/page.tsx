@@ -21,8 +21,8 @@ import {
   Popover,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import ForgotPassword from "./ForgetPassword";
 import ForgetPassword from "./ForgetPassword";
+import { getUserData } from "../../utils/supabase/clientApi";
 
 function Copyright(props: any) {
   return (
@@ -82,6 +82,8 @@ export default function SignIn() {
       try {
         setLoading(true);
         await login(email, password);
+        const customerData = await getUserData(email);
+        window.sessionStorage.setItem("data", JSON.stringify(customerData));
         enqueueSnackbar("Login successful", { variant: "success" });
       } catch (error) {
         enqueueSnackbar("Login Failed", { variant: "error" });
