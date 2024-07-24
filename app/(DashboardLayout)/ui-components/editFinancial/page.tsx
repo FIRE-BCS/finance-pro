@@ -30,11 +30,13 @@ export default function FinancialsForm(){
     const [newLoan, setNewLoan] = useState("");
     const [newInvestment, setNewInvestment] = useState("");
     const [newFD, setNewFD] = useState("");
+    const [newSavings, setNewSavings] = useState("");
     const [newIncome, setNewIncome] = useState("");
     const [tradingError, setTradingError] = useState(false);
     const [loanError, setLoanError] = useState(false);
     const [investmentError, setInvestmentError] = useState(false);
     const [fdError, setFDError] = useState(false);
+    const [savingsError, setSavingsError] = useState(false);
     const [incomeError, setIncomeError] = useState(false);
 
     const riskTolerance = [
@@ -137,6 +139,23 @@ export default function FinancialsForm(){
                 }}
                 error={investmentError}
                 helperText={investmentError? "Investment account number must begin with '444' with 6 other digits following it":""}
+              />
+              <TextField
+                id="account-savings"
+                label="Savings Account No."
+                variant="outlined"
+                defaultValue="555000000"
+                onChange={(e) => {
+                  if (e.target.value !== "" && !(/^555\d{6}$/).test(e.target.value)){
+                    setSavingsError(true)
+                  }
+                  else{
+                    setSavingsError(false)
+                    setNewSavings(e.target.value)
+                  }
+                }}
+                error={savingsError}
+                helperText={savingsError? "Savings account number must begin with '555' with 6 other digits following it":""}
               />
               <TextField
                 id="income-yearly"
