@@ -164,6 +164,7 @@ export default function SignIn() {
               variant="contained"
               color="primary"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
               {loading ? (
                 <CircularProgress size={24} color="inherit" />

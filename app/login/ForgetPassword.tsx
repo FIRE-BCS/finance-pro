@@ -79,6 +79,7 @@ const ForgotPassword = ({ setOpen }: Props) => {
             color="primary"
             sx={{ mt: 2 }}
             onClick={(e) => handleSubmit(e)}
+            disabled={loading}
           >
             {loading ? (
               <CircularProgress size={24} color="inherit" />
