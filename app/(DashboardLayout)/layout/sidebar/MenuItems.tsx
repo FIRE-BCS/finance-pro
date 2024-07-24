@@ -13,6 +13,13 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: "Chatbot",
+    icon: IconUser,
+    href: "/ui-components/chatbot",
+  },
+  
+  {
+    id: uniqueId(),
     title: "Buttons",
     icon: IconCircleDot,
     href: "/ui-components/buttons",
