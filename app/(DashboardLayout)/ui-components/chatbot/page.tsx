@@ -27,4 +27,4 @@ const Chatbot = () => {
   );
 };
 
-export default ChatbotUI;
+export default Chatbot;

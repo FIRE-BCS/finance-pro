@@ -9,9 +9,9 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Send } from "@mui/icons-material";
+import { Send, AttachMoney, AccountBalance, TrendingUp } from "@mui/icons-material";
 
-export default function Home() {
+export default function ChatbotUI() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [messageSent, setMessageSent] = useState(false);
@@ -37,8 +37,15 @@ export default function Home() {
   };
 
   const handleCardClick = (text) => {
-    setInput(text);
-    handleSend();
+    setMessages([...messages, { type: "user", text: text }]);
+    setTimeout(() => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "bot", text: "This is a default response." },
+      ]);
+    }, 1000);
+    setInput("");
+    setMessageSent(true);
   };
 
   return (
@@ -61,31 +68,31 @@ export default function Home() {
         maxWidth="800px"
         marginBottom="20px"
         sx={{
-          display: messageSent ? "none" : "flex", // Hide if input is present
+          display: messageSent ? "none" : "flex",
         }}
       >
         {[
-          "Ask abt finance decision 1",
-          "Ask abt finance decision 2",
-          "Ask abt finance decision 3",
-        ].map((text, index) => (
+          { text: "What is my total assets?", icon: <AttachMoney /> },
+          { text: "What bank loans I can take?", icon: <AccountBalance /> },
+          { text: "Investment opportunities", icon: <TrendingUp /> },
+        ].map((item, index) => (
           <Card
             key={index}
             sx={{
               minWidth: 150,
               maxWidth: 200,
               textAlign: "center",
-              padding: "10px",
+              padding: "1px",
               boxShadow: 3,
               cursor: "pointer",
             }}
-            onClick={() => handleCardClick(text)}
+            onClick={() => handleCardClick(item.text)}
           >
             <CardContent>
               <Box display="flex" flexDirection="column" alignItems="center">
-                {/* Add icons here if needed */}
-                <Box sx={{ height: 50 }} />
-                <Box>{text}</Box>
+                {item.icon}
+                <Box sx={{ height: 10 }} />
+                <Box>{item.text}</Box>
               </Box>
             </CardContent>
           </Card>
@@ -115,6 +122,10 @@ export default function Home() {
                   bgcolor: message.type === "user" ? "#e0f7fa" : "#f1f8e9",
                   borderRadius: 2,
                   padding: "10px",
+                  maxWidth: "75%",
+                  alignSelf: message.type === "user" ? "flex-end" : "flex-start",
+                  marginLeft: message.type === "user" ? "auto" : "0",
+                  marginRight: message.type === "user" ? "0" : "auto",
                 }}
               />
             </ListItem>
@@ -124,7 +135,7 @@ export default function Home() {
           display="flex"
           alignItems="center"
           sx={{
-            width: "100%",
+            width: "110%",
             backgroundColor: "#fff",
             boxShadow: 1,
             borderRadius: 2,
@@ -135,11 +146,11 @@ export default function Home() {
             sx={{
               ml: 1,
               flex: 1,
-              transition: "width 0.5s ease", // Example transition
-              width: input ? "100%" : "0%", // Conditionally adjust width
-              overflow: "hidden", // Hide overflow when collapsed
+              transition: "width 0.5s ease",
+              width: "100%",
+              overflow: "hidden",
             }}
-            placeholder="Message ChatGPT"
+            placeholder="Message FinanceProBot"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -152,3 +163,4 @@ export default function Home() {
     </Box>
   );
 }
+
