@@ -20,10 +20,10 @@ const Dashboard = () => {
           </Grid>
 
           <Grid item xs={12} lg={6}>
-            <Investments />
+            {/* <Investments /> */}
           </Grid>
           <Grid item xs={12} lg={6}>
-            <Investments />
+            {/* <Investments /> */}
           </Grid>
         </Grid>
       </Box>
