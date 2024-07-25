@@ -42,11 +42,12 @@ const Profile = () => {
   const successlight = theme.palette.success.light;
 
   const logout = async () => {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signOut()
-    router.push('/login')
+    const supabase = createClient();
+    const { error } = await supabase.auth.signOut();
+    window.sessionStorage.clear();
+    router.push("/login");
     enqueueSnackbar("Logout successful", { variant: "success" });
-  }
+  };
 
   /*profile data*/
   const profiledata = [
@@ -144,13 +145,11 @@ const Profile = () => {
             width: "360px",
             p: 2,
             pb: 2,
-            pt: 0
+            pt: 0,
           },
         }}
       >
-
         <Box pt={0}>
-
           <List>
             <ListItemButton component="a" href="#">
               <ListItemText primary="Edit Profile" />
@@ -165,15 +164,18 @@ const Profile = () => {
               <ListItemText primary="My Settings" />
             </ListItemButton>
           </List>
-
         </Box>
         <Divider />
         <Box mt={2}>
-          <Button fullWidth variant="contained" color="primary" onClick={() => logout()}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => logout()}
+          >
             Logout
           </Button>
         </Box>
-
       </Menu>
     </Box>
   );

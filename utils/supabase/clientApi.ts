@@ -27,3 +27,38 @@ export async function getFixedDAmount(customerId: number) {
 
   return amount;
 };
+
+export async function getSavingsAmount(customerId: number) {
+  const supabase = createClient();
+  var amount = 0;
+
+  let { data: savings, error } = await supabase
+    .from("Account_Savings")
+    .select("*")
+    .eq("customerId", customerId);
+
+    savings &&
+    savings.forEach((saving) => {
+      amount += saving.depositAmount;
+    });
+
+  return amount;
+};
+
+export async function getLoansAmount(customerId: number) {
+  const supabase = createClient();
+  var amount = 0;
+
+  let { data: loans, error } = await supabase
+    .from("Account_Loan")
+    .select("*")
+    .eq("customerId", customerId);
+
+  loans &&
+    loans.forEach((loan) => {
+      amount += loan.loanAmount;
+    });
+
+  return amount;
+};
+

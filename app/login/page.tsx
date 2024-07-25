@@ -23,6 +23,7 @@ import {
 import { useSnackbar } from "notistack";
 import ForgetPassword from "./ForgetPassword";
 import { getUserData } from "../../utils/supabase/clientApi";
+import { useRouter } from "next/navigation";
 
 function Copyright(props: any) {
   return (
@@ -50,6 +51,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const validateEmail = (value: string) => {
     if (!value) {
@@ -84,6 +86,8 @@ export default function SignIn() {
         await login(email, password);
         const customerData = await getUserData(email);
         window.sessionStorage.setItem("data", JSON.stringify(customerData));
+
+        router.push("/");
         enqueueSnackbar("Login successful", { variant: "success" });
       } catch (error) {
         enqueueSnackbar("Login Failed", { variant: "error" });

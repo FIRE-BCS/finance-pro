@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import DashboardCard from "../shared/DashboardCard";
-import { getFixedDAmount } from "../../../../utils/supabase/clientApi";
+import {
+  getFixedDAmount,
+  getLoansAmount,
+  getSavingsAmount,
+} from "../../../../utils/supabase/clientApi";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -8,7 +12,7 @@ type Props = {
 };
 
 const FinDisplay: React.FC<Props> = ({ title }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState(0.0);
 
   useEffect(() => {
     const fetchAmount = async () => {
@@ -17,11 +21,11 @@ const FinDisplay: React.FC<Props> = ({ title }) => {
 
       let fetchedAmount = 0;
       if (title === "Savings") {
-        fetchedAmount = 12313;
+        fetchedAmount = await getSavingsAmount(customerData.id);
       } else if (title === "Fixed Deposits") {
         fetchedAmount = await getFixedDAmount(customerData.id);
       } else {
-        fetchedAmount = 919919;
+        fetchedAmount = await getLoansAmount(customerData.id);
       }
 
       setAmount(fetchedAmount);
@@ -34,10 +38,10 @@ const FinDisplay: React.FC<Props> = ({ title }) => {
     <DashboardCard>
       <Box height={100}>
         <Typography variant="h3" color="grey">
-          {title}
+          {title} ($SGD)
         </Typography>
         <Typography variant="h1" color="#525355" marginTop={2}>
-          ${amount} SGD
+          {(Math.round(amount * 100) / 100).toFixed(2)}
         </Typography>
       </Box>
     </DashboardCard>
