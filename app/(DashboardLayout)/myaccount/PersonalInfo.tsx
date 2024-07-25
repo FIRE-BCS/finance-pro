@@ -18,20 +18,45 @@ import BaseCard from '../components/shared/BaseCard';
 import { useRouter } from "next/navigation";
 
 
-// import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js'
+import { supabaseUrl, supabaseKey } from "../../../utils/supabasekeys";
 // const supabaseUrl = 'https://mxsmfsloonleakgmynob.supabase.co'
 // const supabaseKey = process.env.SUPABASE_KEY
 // const supabase = createClient(supabaseUrl, supabaseKey)
 
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-// let { data: Customer, error } = await supabase
-//   .from('Customer')
-//   .select('firstName')
+async function fetchCustomerData() {
+  try {
+    const { data, error } = await supabase
+      .from('Customer')
+      .select('firstName');
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error fetching data:', error.message);
+    return null;
+  }
+}
 
 
-export default function PersonalInfo() {
+
+export default async function PersonalInfo() {
   // const [value, setValue] = React.useState<number | null>(2);
-  const router = useRouter();
+  // const router = useRouter();
+  
+  fetchCustomerData()
+  .then(data => {
+    if (data) {
+      console.log('Customer data:', data);
+    }
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
   const users = [
     {
       id: "1",
@@ -55,13 +80,13 @@ export default function PersonalInfo() {
               '& > legend': { mt: 2 },
             }}
           >
-            <Typography component="legend">First Name: {user.firstName} </Typography>
+            <Typography component="legend">First Name: {} </Typography>
             <Typography component="legend">Last Name: {user.lastName}</Typography>
             <Typography component="legend">Date of Birth: {user.DOB}</Typography>
             <Typography component="legend">Email: {user.email}</Typography>
           </Box>
           <br/>
-          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/ui-components/editPersonal">
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/editPersonal">
                 Edit
           </Button>
         </BaseCard>

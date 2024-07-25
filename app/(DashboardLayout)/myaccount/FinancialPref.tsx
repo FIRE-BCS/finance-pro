@@ -45,7 +45,7 @@ export default function FinancialInfo() {
             <Typography component="legend">Financial Goal: {finance.financialGoal}</Typography>
           </Box>
           <br/>
-          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/ui-components/editFinancial">
+          <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/editFinancial">
                 Edit
           </Button>
         </BaseCard>

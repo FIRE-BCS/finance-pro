@@ -23,7 +23,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en-gb'
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import BaseCard from '../../components/shared/BaseCard';
+import BaseCard from '../components/shared/BaseCard';
+
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
