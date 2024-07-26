@@ -49,6 +49,18 @@ const Forms = () => {
     const [dobError, setDOBError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
+
+    let customerData;
+
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      customerData = data ? JSON.parse(data) : {};
+    } else {
+      customerData = {};
+    }
+
+    const dobDayjs = customerData.DOB ? dayjs(customerData.DOB) : null;
+
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
@@ -59,7 +71,7 @@ const Forms = () => {
                 id="name-basic"
                 label="First Name"
                 variant="outlined"
-                defaultValue="Julia"
+                defaultValue={customerData.firstName}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setFirstNameError(true)
@@ -76,7 +88,7 @@ const Forms = () => {
                 id="name-basic"
                 label="Last Name"
                 variant="outlined"
-                defaultValue="Yeo"
+                defaultValue={customerData.lastName}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setLastNameError(true)
@@ -93,7 +105,7 @@ const Forms = () => {
                 id="email-basic" 
                 label="Email" 
                 variant="outlined" 
-                defaultValue="yeo.julia@email.com"
+                defaultValue={customerData.email}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setEmailError(true)
@@ -121,7 +133,7 @@ const Forms = () => {
                   <DatePicker 
                     label="Date of Birth"
                     slotProps={{ textField: { fullWidth: true } }} 
-                    defaultValue={dayjs("1987-2-9")}
+                    defaultValue={dobDayjs}
                     onChange={(value) => {
                       if(value!==null){
                         setNewDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
