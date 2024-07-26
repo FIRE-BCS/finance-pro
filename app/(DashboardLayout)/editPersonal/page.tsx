@@ -61,6 +61,8 @@ const Forms = () => {
       customerData = {};
     }
 
+    const dobDayjs = customerData.DOB ? dayjs(customerData.DOB) : null;
+
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
@@ -133,7 +135,7 @@ const Forms = () => {
                   <DatePicker 
                     label="Date of Birth"
                     slotProps={{ textField: { fullWidth: true } }} 
-                    defaultValue={dayjs(customerData.DOB)}
+                    defaultValue={dobDayjs}
                     onChange={(value) => {
                       if(value!==null){
                         setNewDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
