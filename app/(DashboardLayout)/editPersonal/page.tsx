@@ -124,7 +124,7 @@ const Forms = () => {
                     defaultValue={dayjs("1987-2-9")}
                     onChange={(value) => {
                       if(value!==null){
-                        setNewDOB(`${value.$D}/${value.$M + 1}/${value.$y}`);
+                        setNewDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
                       }
                     }}
                   />
