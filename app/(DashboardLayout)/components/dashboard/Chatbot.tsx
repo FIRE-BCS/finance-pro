@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from "react";
 import {
   Box,
@@ -22,22 +23,52 @@ export default function ChatbotUI() {
   const [input, setInput] = useState<string>("");
   const [messageSent, setMessageSent] = useState<boolean>(false);
 
-  const handleSend = () => {
-    if (input.trim() !== "") {
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { type: "user", text: input }
-        ]);
-        setTimeout(() => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { type: "bot", text: "This is a default response." }
-            ]);
-        }, 1000);
-        setMessageSent(true);
-        setInput("");
+
+  const sendMessage = async (message: string) => {
+    try {
+      const response = await axios.post('http://localhost:5000/ask', {
+        question: message,
+        url: 'https://www.sc.com/sg/',
+      });
+      const botResponse = response.data.answer;
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: 'user', text: message },
+        { type: 'bot', text: botResponse },
+      ]);
+    } catch (error) {
+      console.error('Error:', error);
     }
-};
+  };
+
+  const handleSend = () => {
+    if (input.trim() !== '') {
+      sendMessage(input);
+      setInput('');
+    }
+  };
+
+  const handleCardClick = (text: string) => {
+    sendMessage(text);
+    setMessageSent(true);
+  };
+
+//   const handleSend = () => {
+//     if (input.trim() !== "") {
+//         setMessages((prevMessages) => [
+//             ...prevMessages,
+//             { type: "user", text: input }
+//         ]);
+//         setTimeout(() => {
+//             setMessages((prevMessages) => [
+//                 ...prevMessages,
+//                 { type: "bot", text: "This is a default response." }
+//             ]);
+//         }, 1000);
+//         setMessageSent(true);
+//         setInput("");
+//     }
+// };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -45,17 +76,17 @@ export default function ChatbotUI() {
     }
   };
 
-  const handleCardClick = (text: string) => {
-    setMessages([...messages, { type: "user", text: text }]);
-    setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { type: "bot", text: "This is a default response." },
-      ]);
-    }, 1000);
-    setInput("");
-    setMessageSent(true);
-  };
+  // const handleCardClick = (text: string) => {
+  //   setMessages([...messages, { type: "user", text: text }]);
+  //   setTimeout(() => {
+  //     setMessages((prevMessages) => [
+  //       ...prevMessages,
+  //       { type: "bot", text: "This is a default response." },
+  //     ]);
+  //   }, 1000);
+  //   setInput("");
+  //   setMessageSent(true);
+  // };
 
   return (
     <Box
