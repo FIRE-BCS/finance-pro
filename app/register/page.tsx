@@ -9,6 +9,7 @@ import {
     Button,
     MenuItem,
     InputAdornment,
+    IconButton,
 } from '@mui/material'
 import { 
   LocalizationProvider,
@@ -24,6 +25,7 @@ import { useSnackbar } from "notistack";
 import { redirect } from "next/navigation";
 import { useRouter } from 'next/navigation'
 import { Router } from 'next/router';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
@@ -61,8 +63,23 @@ export default function Forms(){
   const [savingsError, setSavingsError] = useState(false);
   const [incomeError, setIncomeError] = useState(false);
   const [incomeErrorMessage, setIncomeErrorMessage] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [error2, setError2] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error2Message, setError2Message] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+  };
 
   const riskTolerance = [
     {
@@ -192,6 +209,81 @@ export default function Forms(){
                     />
                   </Stack>
                 </LocalizationProvider>
+                <TextField
+                    required
+                    id="pass-basic"
+                    label="Password"
+                    type={showPassword ? 'text' : 'password'}
+                    variant="outlined"
+                    InputProps={{
+                        endAdornment:
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                    }}
+                    onChange={(e) => {
+                      if (e.target.value === ""){
+                        setError(true)
+                        setErrorMessage("Password cannot be empty")
+                      }
+                      else if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).test(e.target.value)){
+                        setError(true)
+                        setErrorMessage("Password must contain at least eight characters, one uppercase letter, one lowercase letter, one number, and one special character")
+                      }
+                      else if (e.target.value !== "" && (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).test(e.target.value)){
+                        setError(false)
+                        setErrorMessage("")
+                        setPassword(e.target.value)
+                      }
+                      else{
+                        setError(false)
+                        setErrorMessage("")
+                      }
+                    }}
+                    error={error}
+                    helperText={errorMessage}
+                />
+                <TextField
+                    required
+                    id="pass-confirm"
+                    label="Confirm New Password"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    variant="outlined"
+                    InputProps={{
+                        endAdornment:
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowConfirmPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                >
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                    }}
+                    onChange={(e) => {
+                      if (e.target.value === ""){
+                        setError2(true)
+                        setError2Message("Confirm Password cannot be empty")
+                      }
+                      else if (e.target.value !== "" && e.target.value !== password){
+                        setError2(true)
+                        setError2Message("The passwords do not match")
+                      }
+                      else{
+                        setError2(false)
+                      }
+                      setConfirmPassword(e.target.value)
+                    }}
+                    error={error2}
+                    helperText={error2?  error2Message:""}
+                />
               </Stack>
               </>
             </BaseCard>
@@ -360,6 +452,10 @@ export default function Forms(){
                     && !emailError
                     && email !== ""
                     && dob !== ""
+                    && !error
+                    && password !== ""
+                    && !error2
+                    && confirmPassword !== ""
                     && !tradingError
                     && !loanError
                     && !fdError
