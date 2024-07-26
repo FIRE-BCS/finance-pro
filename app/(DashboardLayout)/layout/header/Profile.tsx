@@ -77,6 +77,9 @@ const Profile = () => {
     },
   ];
 
+  const data = window.sessionStorage.getItem('data');
+  const customerData = data ? JSON.parse(data) : { id: 0 };
+
   return (
     <Box>
       <IconButton
@@ -124,7 +127,7 @@ const Profile = () => {
               ml: 1,
             }}
           >
-            Julia
+            {customerData.firstName}
           </Typography>
           <IconChevronDown width="20" height="20" />
         </Box>

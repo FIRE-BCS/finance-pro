@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Typography,
   Box,
@@ -15,59 +15,14 @@ import {
   Link,
 } from "@mui/material";
 import BaseCard from '../components/shared/BaseCard';
-import { useRouter } from "next/navigation";
-
-
-import { createClient } from '@supabase/supabase-js'
-import { supabaseUrl, supabaseKey } from "../../../utils/supabasekeys";
-// const supabaseUrl = 'https://mxsmfsloonleakgmynob.supabase.co'
-// const supabaseKey = process.env.SUPABASE_KEY
-// const supabase = createClient(supabaseUrl, supabaseKey)
-
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-async function fetchCustomerData() {
-  try {
-    const { data, error } = await supabase
-      .from('Customer')
-      .select('firstName');
-
-    if (error) {
-      throw error;
-    }
-
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-    return null;
-  }
-}
-
 
 
 export default async function PersonalInfo() {
-  // const [value, setValue] = React.useState<number | null>(2);
-  // const router = useRouter();
+
+  // const firstName = window.sessionStorage.getItem('firstName');
+  const data = window.sessionStorage.getItem('data');
+  const customerData = data ? JSON.parse(data) : { id: 0 };
   
-  fetchCustomerData()
-  .then(data => {
-    if (data) {
-      console.log('Customer data:', data);
-    }
-  })
-  .catch(error => console.error('Error fetching data:', error));
-
-  const users = [
-    {
-      id: "1",
-      firstName: "Julia",
-      lastName: "Yeo",
-      DOB: "09/02/1978",
-      email: "yeo.julia@email.com",
-    },
-  ];
-
-  const user = users[0];
 
   return (
 
@@ -80,10 +35,10 @@ export default async function PersonalInfo() {
               '& > legend': { mt: 2 },
             }}
           >
-            <Typography component="legend">First Name: {} </Typography>
-            <Typography component="legend">Last Name: {user.lastName}</Typography>
-            <Typography component="legend">Date of Birth: {user.DOB}</Typography>
-            <Typography component="legend">Email: {user.email}</Typography>
+            <Typography component="legend">First Name: {customerData.firstName} </Typography>
+            <Typography component="legend">Last Name: {customerData.lastName} </Typography>
+            <Typography component="legend">Date of Birth: {customerData.DOB} </Typography>
+            <Typography component="legend">Email: {customerData.email}</Typography>
           </Box>
           <br/>
           <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/editPersonal">
@@ -95,101 +50,3 @@ export default async function PersonalInfo() {
 
   );
 }
-
-// const PersonalInfo = () => {
-//   return (
-//     <BaseCard title="Personal Information">
-//       <TableContainer
-//         sx={{
-//           width: {
-//             xs: "274px",
-//             sm: "100%",
-//           },
-//         }}
-//       >
-//         <Table
-//           aria-label="simple table"
-//           sx={{
-//             whiteSpace: "nowrap",
-//             mt: 2,
-//           }}
-//         >
-//           <TableHead>
-//             <TableRow>
-//               <TableCell>
-//                 <Typography color="textSecondary" variant="h6">
-//                   Id
-//                 </Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <Typography color="textSecondary" variant="h6">
-//                   firstName
-//                 </Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <Typography color="textSecondary" variant="h6">
-//                   lastName
-//                 </Typography>
-//               </TableCell>
-//               <TableCell>
-//                 <Typography color="textSecondary" variant="h6">
-//                   Date of Birth
-//                 </Typography>
-//               </TableCell>
-//               <TableCell align="right">
-//                 <Typography color="textSecondary" variant="h6">
-//                   Email
-//                 </Typography>
-//               </TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {users.map((user) => (
-//               <TableRow key={user.firstName}>
-//                 <TableCell>
-//                   <Typography fontSize="15px" fontWeight={500}>
-//                     {user.id}
-//                   </Typography>
-//                 </TableCell>
-//                 <TableCell>
-//                   <Box display="flex" alignItems="center">
-//                     <Box>
-//                       <Typography variant="h6" fontWeight={600}>
-//                         {user.firstName}
-//                       </Typography>
-//                       <Typography color="textSecondary" fontSize="13px">
-//                         {user.lastName}
-//                       </Typography>
-//                     </Box>
-//                   </Box>
-//                 </TableCell>
-//                 <TableCell>
-//                   <Typography color="textSecondary" variant="h6">
-//                     {user.DOB}
-//                   </Typography>
-//                 </TableCell>
-//                 {/* <TableCell>
-//                   <Chip
-//                     sx={{
-//                       pl: "4px",
-//                       pr: "4px",
-//                       backgroundColor: product.pbg,
-//                       color: "#fff",
-//                     }}
-//                     size="small"
-//                     label={product.priority}
-//                   ></Chip>
-//                 </TableCell> */}
-//                 <TableCell align="right">
-//                   <Typography variant="h6">${user.email}</Typography>
-//                 </TableCell>
-//               </TableRow>
-//             ))}
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//     </BaseCard>
-//   );
-// };
-
-// export default PersonalInfo;
