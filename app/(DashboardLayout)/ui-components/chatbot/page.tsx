@@ -15,16 +15,16 @@ const darkTheme = createTheme({ palette: { mode: 'dark' } });
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 
-import ProductPerfomance from "../../components/dashboard/ProductPerformance";
+import ChatbotUI from '../../components/dashboard/Chatbot';
 
-const Tables = () => {
+const Chatbot = () => {
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} lg={12}>
-        <ProductPerfomance />
+        <ChatbotUI />
       </Grid>
     </Grid>
   );
 };
 
-export default Tables;
+export default Chatbot;
