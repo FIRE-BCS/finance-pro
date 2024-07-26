@@ -11,32 +11,41 @@ import {
 } from "@mui/material";
 import { Send, AttachMoney, AccountBalance, TrendingUp } from "@mui/icons-material";
 
+
+interface Message {
+  type: "user" | "bot";
+  text: string;
+}
+
 export default function ChatbotUI() {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [messageSent, setMessageSent] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState<string>("");
+  const [messageSent, setMessageSent] = useState<boolean>(false);
 
   const handleSend = () => {
     if (input.trim() !== "") {
-      setMessages([...messages, { type: "user", text: input }]);
-      setTimeout(() => {
         setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: "bot", text: "This is a default response." },
+            ...prevMessages,
+            { type: "user", text: input }
         ]);
-      }, 1000);
-      setMessageSent(true);
-      setInput("");
+        setTimeout(() => {
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { type: "bot", text: "This is a default response." }
+            ]);
+        }, 1000);
+        setMessageSent(true);
+        setInput("");
     }
-  };
+};
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       handleSend();
     }
   };
 
-  const handleCardClick = (text) => {
+  const handleCardClick = (text: string) => {
     setMessages([...messages, { type: "user", text: text }]);
     setTimeout(() => {
       setMessages((prevMessages) => [
