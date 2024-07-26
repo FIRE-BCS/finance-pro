@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import DashboardCard from "../shared/DashboardCard";
 import {
   getFixedDAmount,
@@ -27,7 +27,6 @@ const FinDisplay: React.FC<Props> = ({ title }) => {
       } else {
         fetchedAmount = await getLoansAmount(customerData.id);
       }
-
       setAmount(fetchedAmount);
     };
 
@@ -41,7 +40,11 @@ const FinDisplay: React.FC<Props> = ({ title }) => {
           {title} ($SGD)
         </Typography>
         <Typography variant="h1" color="#525355" marginTop={2}>
-          {(Math.round(amount * 100) / 100).toFixed(2)}
+          {amount === 0.0 ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            (Math.round(amount * 100) / 100).toFixed(2)
+          )}
         </Typography>
       </Box>
     </DashboardCard>
