@@ -26,6 +26,7 @@ export default function FinancialInfo() {
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
         <BaseCard title="Financial Preferences">
+        <Box>
           <Box
             sx={{
               '& > legend': { mt: 2 },
@@ -38,6 +39,7 @@ export default function FinancialInfo() {
           <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/editFinancial">
                 Edit
           </Button>
+        </Box>
         </BaseCard>
       </Grid>
     </Grid>
