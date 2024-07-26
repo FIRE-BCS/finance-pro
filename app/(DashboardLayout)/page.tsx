@@ -1,7 +1,7 @@
-'use client'
-import { Grid, Box } from "@mui/material";
+"use client";
+import { Grid, Box, CircularProgress } from "@mui/material";
 import PageContainer from "./components/container/PageContainer";
-import Investments from "./components/dashboard/Investments";
+import FinChart from "./components/dashboard/FinChart";
 import FinDisplay from "./components/dashboard/FinDisplay";
 
 const Dashboard = () => {
@@ -18,12 +18,11 @@ const Dashboard = () => {
           <Grid item xs={12} lg={4}>
             <FinDisplay title="Loans" />
           </Grid>
-
           <Grid item xs={12} lg={6}>
-            {/* <Investments /> */}
+            <FinChart title="Investments"/>
           </Grid>
           <Grid item xs={12} lg={6}>
-            {/* <Investments /> */}
+            <FinChart title="Trading"/>
           </Grid>
         </Grid>
       </Box>
