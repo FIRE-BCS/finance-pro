@@ -208,7 +208,6 @@ def ask_question():
     website_text = analyze_website(start_url)
     context = get_context(question, website_text)
     result = generate_answer_local(question, context)
-    # result = generate_answer_pplx(question, context)
 
     return jsonify({"answer": result})
 
