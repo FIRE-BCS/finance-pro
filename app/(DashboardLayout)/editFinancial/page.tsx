@@ -67,6 +67,15 @@ export default function FinancialsForm(){
         },
     ];
 
+    let customerData;
+
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      customerData = data ? JSON.parse(data) : {};
+    } else {
+      customerData = {};
+    }
+    
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
@@ -183,7 +192,7 @@ export default function FinancialsForm(){
                 select
                 label="Risk Tolerance"
                 variant="outlined"
-                defaultValue="High"
+                defaultValue={customerData.riskTolerance}
                 >
                     {riskTolerance.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -196,7 +205,7 @@ export default function FinancialsForm(){
                 select
                 label="Financial Goal"
                 variant="outlined"
-                defaultValue="Housing"
+                defaultValue={customerData.financialGoal}
               >
                 {financialGoals.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
