@@ -18,6 +18,8 @@ import {
 import BaseCard from '../(DashboardLayout)/components/shared/BaseCard';
 import RootLayout from '../(DashboardLayout)/layout';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { useSnackbar } from "notistack";
+import { useRouter } from 'next/navigation'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
@@ -36,11 +38,14 @@ export default function ChangePassword(){
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [error, setError] = useState(false)
-  const [error2, setError2] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("")
+  const [error, setError] = useState(false);
+  const [error2, setError2] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error2Message, setError2Message] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
   const handleClickShowNewPassword = () => setShowNewPassword((show) => !show);
   const handleClickShowConfirmNewPassword = () => setShowConfirmNewPassword((show) => !show);
@@ -113,8 +118,13 @@ export default function ChangePassword(){
                             </InputAdornment>
                     }}
                     onChange={(e) => {
-                      if (e.target.value !== "" && e.target.value !== newPassword){
+                      if (e.target.value === "" && newPassword !== ""){
                         setError2(true)
+                        setError2Message("Confirm Password cannot be empty")
+                      }
+                      else if (e.target.value !== "" && e.target.value !== newPassword){
+                        setError2(true)
+                        setError2Message("The passwords do not match")
                       }
                       else{
                         setError2(false)
@@ -122,11 +132,25 @@ export default function ChangePassword(){
                       setConfirmNewPassword(e.target.value)
                     }}
                     error={error2}
-                    helperText={error2? "The passwords do not match":""}
+                    helperText={error2? error2Message:""}
                 />
             </Stack>
             <br />
-            <Button>
+            <Button
+              onClick={(e)=>{
+                e.preventDefault()
+                if (!error 
+                    && newPassword !== ""
+                    && !error2
+                    && confirmNewPassword !== ""
+                  ){
+                  enqueueSnackbar("Password successfully changed", { variant: "success" });
+                  router.push("/")
+                }
+                else{
+                  enqueueSnackbar("Please ensure the password fields are properly filled and try submitting again", { variant: "error" });
+                }
+              }}>
               Submit
             </Button>
             </>
