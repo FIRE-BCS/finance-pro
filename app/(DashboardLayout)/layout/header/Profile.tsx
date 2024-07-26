@@ -77,6 +77,15 @@ const Profile = () => {
     },
   ];
 
+  let customerData;
+
+  if (typeof window !== "undefined") {
+    const data = window.sessionStorage.getItem("data");
+    customerData = data ? JSON.parse(data) : {};
+  } else {
+    customerData = {};
+  }
+
   return (
     <Box>
       <IconButton
@@ -124,7 +133,7 @@ const Profile = () => {
               ml: 1,
             }}
           >
-            Julia
+            {customerData.firstName}
           </Typography>
           <IconChevronDown width="20" height="20" />
         </Box>
@@ -151,18 +160,18 @@ const Profile = () => {
       >
         <Box pt={0}>
           <List>
-            <ListItemButton component="a" href="#">
+            {/* <ListItemButton component="a" href="#">
               <ListItemText primary="Edit Profile" />
+            </ListItemButton> */}
+            <ListItemButton component="a" href="/myaccount">
+              <ListItemText primary="My Account" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
-              <ListItemText primary="Account" />
-            </ListItemButton>
-            <ListItemButton component="a" href="#">
+            <ListItemButton component="a" href="/changePassword">
               <ListItemText primary="Change Password" />
             </ListItemButton>
-            <ListItemButton component="a" href="#">
+            {/* <ListItemButton component="a" href="#">
               <ListItemText primary="My Settings" />
-            </ListItemButton>
+            </ListItemButton> */}
           </List>
         </Box>
         <Divider />
