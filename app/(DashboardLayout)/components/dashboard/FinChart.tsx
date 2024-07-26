@@ -9,6 +9,8 @@ import {
   Brush,
 } from "recharts";
 import BaseCard from "../shared/BaseCard";
+import { Box, Typography } from "@mui/material";
+import DashboardCard from "../shared/DashboardCard";
 
 const investmentData = [
   { date: "Aug", value: 1000 },
@@ -46,37 +48,56 @@ type Props = {
 
 const FinChart: React.FC<Props> = ({ title }) => {
   return (
-    <BaseCard title={title}>
-      <ResponsiveContainer width="100%" height={400}>
-        <AreaChart
-          data={title === "Investments" ? investmentData : tradingData}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <XAxis dataKey="date" />
-          <YAxis
-            domain={title === "Investments" ? [1020, 1350] : [101.2, 113.84]}
-          />
-          <Tooltip
-            contentStyle={{ backgroundColor: "#0473ea", color: "#fff" }}
-            itemStyle={{ color: "#fff", fontFamily: "Arial, sans-serif" }}
-          />
-          <Brush dataKey="date" height={30} stroke="#0083B3" />
-          <Area
-            type="monotone"
-            dataKey="value"
-            stroke="#0473ea"
-            fillOpacity={0.3}
-            fill="#0473ea"
-            animationDuration={1500}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-    </BaseCard>
+    <DashboardCard>
+      <Box>
+        <Typography variant="h3" color="grey" marginBottom={5}>
+          {title}
+        </Typography>
+        <ResponsiveContainer width="100%" height={400}>
+          <AreaChart
+            data={title === "Investments" ? investmentData : tradingData}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+            <XAxis
+              dataKey="date"
+              tick={{
+                fontSize: 13,
+                fill: "black",
+              }}
+              axisLine={{ stroke: "black" }}
+              tickLine={{ stroke: "black" }}
+            />
+            <YAxis
+              domain={title === "Investments" ? [1020, 1350] : [101.2, 113.84]}
+              tick={{
+                fontSize: 14,
+                fill: "black",
+              }}
+              axisLine={{ stroke: "black" }}
+              tickLine={{ stroke: "black" }}
+            />
+            <Tooltip
+              contentStyle={{ backgroundColor: "#0473ea", color: "#fff" }}
+              itemStyle={{ color: "#fff", fontFamily: "Arial, sans-serif" }}
+            />
+            <Brush dataKey="date" height={30} stroke="#0083B3" />
+            <Area
+              type="monotone"
+              dataKey="value"
+              stroke="#0473ea"
+              fillOpacity={0.3}
+              fill="#0473ea"
+              animationDuration={1500}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </Box>
+    </DashboardCard>
   );
 };
 
