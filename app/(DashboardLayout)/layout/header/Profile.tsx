@@ -77,8 +77,14 @@ const Profile = () => {
     },
   ];
 
-  const data = window.sessionStorage.getItem('data');
-  const customerData = data ? JSON.parse(data) : { id: 0 };
+  let customerData;
+
+  if (typeof window !== "undefined") {
+    const data = window.sessionStorage.getItem("data");
+    customerData = data ? JSON.parse(data) : {};
+  } else {
+    customerData = {};
+  }
 
   return (
     <Box>
