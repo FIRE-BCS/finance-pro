@@ -29,7 +29,7 @@ export default async function PersonalInfo() {
     <Grid container spacing={3}>
       <Grid item xs={12} lg={12}>
         <BaseCard title="Personal Information">
-
+          <Box>
           <Box
             sx={{
               '& > legend': { mt: 2 },
@@ -44,6 +44,7 @@ export default async function PersonalInfo() {
           <Button variant="contained" color="primary"  sx={{marginTop:'10px'}} href="/editPersonal">
                 Edit
           </Button>
+          </Box>
         </BaseCard>
       </Grid>
     </Grid>
