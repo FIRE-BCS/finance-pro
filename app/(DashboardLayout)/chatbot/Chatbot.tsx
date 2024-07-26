@@ -9,8 +9,12 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { Send, AttachMoney, AccountBalance, TrendingUp } from "@mui/icons-material";
-
+import {
+  Send,
+  AttachMoney,
+  AccountBalance,
+  TrendingUp,
+} from "@mui/icons-material";
 
 interface Message {
   type: "user" | "bot";
@@ -24,20 +28,20 @@ export default function ChatbotUI() {
 
   const handleSend = () => {
     if (input.trim() !== "") {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { type: "user", text: input },
+      ]);
+      setTimeout(() => {
         setMessages((prevMessages) => [
-            ...prevMessages,
-            { type: "user", text: input }
+          ...prevMessages,
+          { type: "bot", text: "This is a default response." },
         ]);
-        setTimeout(() => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { type: "bot", text: "This is a default response." }
-            ]);
-        }, 1000);
-        setMessageSent(true);
-        setInput("");
+      }, 1000);
+      setMessageSent(true);
+      setInput("");
     }
-};
+  };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
@@ -132,7 +136,8 @@ export default function ChatbotUI() {
                   borderRadius: 2,
                   padding: "10px",
                   maxWidth: "75%",
-                  alignSelf: message.type === "user" ? "flex-end" : "flex-start",
+                  alignSelf:
+                    message.type === "user" ? "flex-end" : "flex-start",
                   marginLeft: message.type === "user" ? "auto" : "0",
                   marginRight: message.type === "user" ? "0" : "auto",
                 }}
@@ -172,4 +177,3 @@ export default function ChatbotUI() {
     </Box>
   );
 }
-

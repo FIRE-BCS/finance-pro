@@ -1,5 +1,4 @@
 import React from "react";
-// mui imports
 import {
   ListItemIcon,
   ListItem,
@@ -80,9 +79,7 @@ const NavItem = ({ item, level, pathDirect, onClick }: ItemType) => {
           >
             {itemIcon}
           </ListItemIcon>
-          <ListItemText>
-            <>{item.title}</>
-          </ListItemText>
+          <ListItemText>{item.title}</ListItemText>
         </ListItemButton>
       </ListItemStyled>
     </List>

@@ -91,7 +91,6 @@ export default function SignIn() {
         enqueueSnackbar("Login successful", { variant: "success" });
       } catch (error) {
         enqueueSnackbar("Login Failed", { variant: "error" });
-      } finally {
         setLoading(false);
       }
     }
