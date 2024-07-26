@@ -49,6 +49,16 @@ const Forms = () => {
     const [dobError, setDOBError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
+
+    let customerData;
+
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      customerData = data ? JSON.parse(data) : {};
+    } else {
+      customerData = {};
+    }
+
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
@@ -59,7 +69,7 @@ const Forms = () => {
                 id="name-basic"
                 label="First Name"
                 variant="outlined"
-                defaultValue="Julia"
+                defaultValue={customerData.firstName}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setFirstNameError(true)
