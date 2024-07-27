@@ -11,7 +11,8 @@ import {
     MenuItem
 } from '@mui/material'
 import BaseCard from '../components/shared/BaseCard';
-
+import { useSnackbar } from "notistack";
+import { useRouter } from 'next/navigation'
 
 // import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 // const Item = styled(Paper)(({ theme }) => ({
@@ -39,6 +40,8 @@ export default function FinancialsForm(){
     const [fdError, setFDError] = useState(false);
     const [savingsError, setSavingsError] = useState(false);
     const [incomeError, setIncomeError] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
 
     const riskTolerance = [
         {
@@ -67,6 +70,15 @@ export default function FinancialsForm(){
         },
     ];
 
+    let customerData;
+
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      customerData = data ? JSON.parse(data) : {};
+    } else {
+      customerData = {};
+    }
+    
     return (
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
@@ -183,7 +195,7 @@ export default function FinancialsForm(){
                 select
                 label="Risk Tolerance"
                 variant="outlined"
-                defaultValue="High"
+                defaultValue={customerData.riskTolerance}
                 >
                     {riskTolerance.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
@@ -196,7 +208,7 @@ export default function FinancialsForm(){
                 select
                 label="Financial Goal"
                 variant="outlined"
-                defaultValue="Housing"
+                defaultValue={customerData.financialGoal}
               >
                 {financialGoals.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -206,7 +218,23 @@ export default function FinancialsForm(){
               </TextField>
             </Stack>
             <br />
-            <Button>
+            <Button
+            onClick={(e)=>{
+              e.preventDefault()
+              if (!tradingError 
+                  && !loanError
+                  && !fdError
+                  && !investmentError
+                  && !savingsError
+                  && !incomeError
+                ){
+                enqueueSnackbar("Financial information successfully changed", { variant: "success" });
+                router.push("/")
+              }
+              else{
+                enqueueSnackbar("Please ensure the fields are properly filled and try submitting again", { variant: "error" });
+              }
+            }}>
               Submit
             </Button>
             </>

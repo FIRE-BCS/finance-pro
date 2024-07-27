@@ -24,7 +24,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/en-gb'
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import BaseCard from '../components/shared/BaseCard';
-
+import { useSnackbar } from "notistack";
+import { useRouter } from 'next/navigation'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body1,
@@ -48,6 +49,19 @@ const Forms = () => {
     const [emailError, setEmailError] = useState(false);
     const [dobError, setDOBError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState("");
+    const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
+
+    let customerData;
+
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      customerData = data ? JSON.parse(data) : {};
+    } else {
+      customerData = {};
+    }
+
+    const dobDayjs = customerData.DOB ? dayjs(customerData.DOB) : null;
 
     return (
       <Grid container spacing={3}>
@@ -59,7 +73,7 @@ const Forms = () => {
                 id="name-basic"
                 label="First Name"
                 variant="outlined"
-                defaultValue="Julia"
+                defaultValue={customerData.firstName}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setFirstNameError(true)
@@ -76,7 +90,7 @@ const Forms = () => {
                 id="name-basic"
                 label="Last Name"
                 variant="outlined"
-                defaultValue="Yeo"
+                defaultValue={customerData.lastName}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setLastNameError(true)
@@ -93,7 +107,7 @@ const Forms = () => {
                 id="email-basic" 
                 label="Email" 
                 variant="outlined" 
-                defaultValue="yeo.julia@email.com"
+                defaultValue={customerData.email}
                 onChange={(e) => {
                   if (e.target.value === ""){
                     setEmailError(true)
@@ -121,7 +135,7 @@ const Forms = () => {
                   <DatePicker 
                     label="Date of Birth"
                     slotProps={{ textField: { fullWidth: true } }} 
-                    defaultValue={dayjs("1987-2-9")}
+                    defaultValue={dobDayjs}
                     onChange={(value) => {
                       if(value!==null){
                         setNewDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
@@ -132,7 +146,20 @@ const Forms = () => {
               </LocalizationProvider>
             </Stack>
             <br />
-            <Button>
+            <Button
+            onClick={(e)=>{
+              e.preventDefault()
+              if (!firstNameError 
+                  && !lastNameError
+                  && !emailError
+                ){
+                enqueueSnackbar("Personal information successfully changed", { variant: "success" });
+                router.push("/")
+              }
+              else{
+                enqueueSnackbar("Please ensure the fields are properly filled and try submitting again", { variant: "error" });
+              }
+            }}>
               Submit
             </Button>
             </>
