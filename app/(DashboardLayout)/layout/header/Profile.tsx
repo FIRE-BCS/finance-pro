@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Menu,
@@ -12,12 +11,7 @@ import {
   List,
   ListItemText,
 } from "@mui/material";
-import {
-  IconChevronDown,
-  IconCreditCard,
-  IconCurrencyDollar,
-  IconShield,
-} from "@tabler/icons-react";
+import { IconChevronDown } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../../../utils/supabase/client";
 import { useSnackbar } from "notistack";
@@ -33,14 +27,6 @@ const Profile = () => {
     setAnchorEl2(null);
   };
 
-  const theme = useTheme();
-  const primary = theme.palette.primary.main;
-  const primarylight = theme.palette.primary.light;
-  const error = theme.palette.error.main;
-  const errorlight = theme.palette.error.light;
-  const success = theme.palette.success.main;
-  const successlight = theme.palette.success.light;
-
   const logout = async () => {
     const supabase = createClient();
     const { error } = await supabase.auth.signOut();
@@ -48,34 +34,6 @@ const Profile = () => {
     router.push("/login");
     enqueueSnackbar("Logout successful", { variant: "success" });
   };
-
-  /*profile data*/
-  const profiledata = [
-    {
-      href: "/",
-      title: "My Profile",
-      subtitle: "Account Settings",
-      icon: <IconCurrencyDollar width="20" height="20" />,
-      color: primary,
-      lightcolor: primarylight,
-    },
-    {
-      href: "/",
-      title: "My Inbox",
-      subtitle: "Messages & Emails",
-      icon: <IconShield width="20" height="20" />,
-      color: success,
-      lightcolor: successlight,
-    },
-    {
-      href: "/",
-      title: "My Tasks",
-      subtitle: "To-do and Daily Tasks",
-      icon: <IconCreditCard width="20" height="20" />,
-      color: error,
-      lightcolor: errorlight,
-    },
-  ];
 
   let customerData;
 
@@ -112,7 +70,7 @@ const Profile = () => {
         <Box
           sx={{
             display: {
-              xs: "none",
+              xs: "flex",
               sm: "flex",
             },
             alignItems: "center",
@@ -138,9 +96,7 @@ const Profile = () => {
           <IconChevronDown width="20" height="20" />
         </Box>
       </IconButton>
-      {/* ------------------------------------------- */}
       {/* Message Dropdown */}
-      {/* ------------------------------------------- */}
       <Menu
         id="msgs-menu"
         anchorEl={anchorEl2}
@@ -160,18 +116,18 @@ const Profile = () => {
       >
         <Box pt={0}>
           <List>
-            {/* <ListItemButton component="a" href="#">
-              <ListItemText primary="Edit Profile" />
-            </ListItemButton> */}
-            <ListItemButton component="a" href="/myaccount">
+            <ListItemButton
+              component="a"
+              onClick={() => router.push("/account")}
+            >
               <ListItemText primary="My Account" />
             </ListItemButton>
-            <ListItemButton component="a" href="/changePassword">
+            <ListItemButton
+              component="a"
+              onClick={() => router.push("/changePassword")}
+            >
               <ListItemText primary="Change Password" />
             </ListItemButton>
-            {/* <ListItemButton component="a" href="#">
-              <ListItemText primary="My Settings" />
-            </ListItemButton> */}
           </List>
         </Box>
         <Divider />

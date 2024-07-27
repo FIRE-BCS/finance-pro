@@ -1,5 +1,5 @@
 import { useMediaQuery, Box, Drawer } from "@mui/material";
-import Logo from "../shared/logo/Logo";
+import Logo from "../shared/Logo";
 import SidebarItems from "./SidebarItems";
 
 interface ItemType {
@@ -25,9 +25,7 @@ const Sidebar = ({
           flexShrink: 0,
         }}
       >
-        {/* ------------------------------------------- */}
         {/* Sidebar for desktop */}
-        {/* ------------------------------------------- */}
         <Drawer
           anchor="left"
           open={isSidebarOpen}
@@ -41,26 +39,22 @@ const Sidebar = ({
             },
           }}
         >
-          {/* ------------------------------------------- */}
           {/* Sidebar Box */}
-          {/* ------------------------------------------- */}
           <Box
             sx={{
               height: "100%",
             }}
             py={2}
           >
-            {/* ------------------------------------------- */}
             {/* Logo */}
-            {/* ------------------------------------------- */}
-            <Box px={2}>
+            <Box px={3}>
               <Logo />
             </Box>
             <Box>
-              {/* ------------------------------------------- */}
               {/* Sidebar Items */}
-              {/* ------------------------------------------- */}
-              <Box mt={3}><SidebarItems /></Box>
+              <Box mt={3}>
+                <SidebarItems />
+              </Box>
             </Box>
           </Box>
         </Drawer>
@@ -81,15 +75,11 @@ const Sidebar = ({
         },
       }}
     >
-      {/* ------------------------------------------- */}
       {/* Logo */}
-      {/* ------------------------------------------- */}
       <Box px={2} py={2}>
         <Logo />
       </Box>
-      {/* ------------------------------------------- */}
       {/* Sidebar For Mobile */}
-      {/* ------------------------------------------- */}
       <SidebarItems />
     </Drawer>
   );

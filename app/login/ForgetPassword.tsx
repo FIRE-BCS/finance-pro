@@ -8,9 +8,11 @@ import {
   DialogContentText,
   DialogActions,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { forgetPassword } from "./actions";
+import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {
   setOpen: (boolean: boolean) => void;
@@ -55,6 +57,17 @@ const ForgotPassword = ({ setOpen }: Props) => {
   return (
     <>
       <DialogTitle>Forget Password</DialogTitle>
+      <IconButton
+        aria-label="close"
+        onClick={() => setOpen(false)}
+        sx={{
+          position: "absolute",
+          right: 8,
+          top: 8,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
       <DialogContent>
         <DialogContentText>
           Instructions to reset your password will be sent to your email
