@@ -203,7 +203,7 @@ export default function Forms(){
                       slotProps={{ textField: { fullWidth: true } }} 
                       onChange={(value) => {
                         if(value!==null){
-                          setDOB(`${value.$D}/${value.$M + 1}/${value.$y}`);
+                          setDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
                         }
                       }}
                     />
