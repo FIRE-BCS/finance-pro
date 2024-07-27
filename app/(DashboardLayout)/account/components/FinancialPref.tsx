@@ -1,21 +1,10 @@
 import React from "react";
-import {
-  Typography,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Chip,
-  TableContainer,
-  Rating,
-  Grid,
-  Button,
-} from "@mui/material";
-import BaseCard from "../components/shared/BaseCard";
+import { Typography, Box, Grid, Button } from "@mui/material";
+import BaseCard from "../../components/shared/BaseCard";
+import { useRouter } from "next/navigation";
 
 export default function FinancialInfo() {
+  const router = useRouter();
   let customerData;
 
   if (typeof window !== "undefined") {
@@ -47,7 +36,7 @@ export default function FinancialInfo() {
               variant="contained"
               color="primary"
               sx={{ marginTop: "10px" }}
-              href="/editFinancial"
+              onClick={() => router.push("/account/editFinancial")}
             >
               Edit
             </Button>

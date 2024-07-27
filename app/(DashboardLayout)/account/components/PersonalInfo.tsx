@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Chip,
-  TableContainer,
-  Rating,
-  Grid,
-  Button,
-  Link,
-} from "@mui/material";
-import BaseCard from "../components/shared/BaseCard";
+import { Typography, Box, Grid, Button } from "@mui/material";
+import BaseCard from "../../components/shared/BaseCard";
+import { useRouter } from "next/navigation";
 
 export default async function PersonalInfo() {
+  const router = useRouter();
   let customerData;
 
   if (typeof window !== "undefined") {
@@ -54,7 +42,7 @@ export default async function PersonalInfo() {
               variant="contained"
               color="primary"
               sx={{ marginTop: "10px" }}
-              href="/editPersonal"
+              onClick={() => router.push("/account/editPersonal")}
             >
               Edit
             </Button>

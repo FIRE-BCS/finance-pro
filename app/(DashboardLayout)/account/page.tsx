@@ -1,9 +1,9 @@
 "use client";
 import { Box, Grid, Typography } from "@mui/material";
-import PersonalInfo from "./PersonalInfo";
-import FinancialInfo from "./FinancialPref";
+import PersonalInfo from "./components/PersonalInfo";
+import FinancialInfo from "./components/FinancialPref";
 
-const Tables = () => {
+const Account = () => {
   return (
     <Box mt={3}>
       <Typography mt="0" variant="h2">
@@ -14,7 +14,6 @@ const Tables = () => {
         <Grid item xs={12} lg={10}>
           <PersonalInfo />
         </Grid>
-        {/* ------------------------- row 1 ------------------------- */}
         <Grid item xs={12} lg={10}>
           <FinancialInfo />
         </Grid>
@@ -23,4 +22,4 @@ const Tables = () => {
   );
 };
 
-export default Tables;
+export default Account;
