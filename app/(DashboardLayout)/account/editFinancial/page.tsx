@@ -70,7 +70,7 @@ export default function FinancialsForm() {
         <BaseCard title="Edit Financial Preferences">
           <>
             <Stack spacing={3}>
-              <TextField
+              {/* <TextField
                 id="account-trading"
                 label="Trading Account No."
                 variant="outlined"
@@ -209,13 +209,17 @@ export default function FinancialsForm() {
                     ? "Yearly income field must only consist of numerical digits"
                     : ""
                 }
-              />
+              /> */}
               <TextField
                 id="risk-tolerance"
                 select
                 label="Risk Tolerance"
                 variant="outlined"
                 defaultValue={customerData.riskTolerance}
+                onChange={(e) => {
+                  customerData.riskTolerance = e.target.value
+                  sessionStorage.setItem("data", JSON.stringify(customerData));
+                }}
               >
                 {riskTolerance.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -229,6 +233,10 @@ export default function FinancialsForm() {
                 label="Financial Goal"
                 variant="outlined"
                 defaultValue={customerData.financialGoal}
+                onChange={(e) => {
+                  customerData.financialGoal = e.target.value
+                  sessionStorage.setItem("data", JSON.stringify(customerData));
+                }}
               >
                 {financialGoals.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -253,7 +261,7 @@ export default function FinancialsForm() {
                     "Financial information successfully changed",
                     { variant: "success" }
                   );
-                  router.push("/");
+                  router.push("/account");
                 } else {
                   enqueueSnackbar(
                     "Please ensure the fields are properly filled and try submitting again",

@@ -50,6 +50,8 @@ const Forms = () => {
                   } else {
                     setFirstNameError(false);
                     setNewFirstName(e.target.value);
+                    customerData.firstName = e.target.value
+                    sessionStorage.setItem("data", JSON.stringify(customerData));
                   }
                 }}
                 error={firstNameError}
@@ -68,6 +70,8 @@ const Forms = () => {
                   } else {
                     setLastNameError(false);
                     setNewLastName(e.target.value);
+                    customerData.lastName = e.target.value
+                    sessionStorage.setItem("data", JSON.stringify(customerData));
                   }
                 }}
                 error={lastNameError}
@@ -94,6 +98,8 @@ const Forms = () => {
                     setEmailError(false);
                     setEmailErrorMessage("");
                     setNewEmail(e.target.value);
+                    customerData.email = e.target.value
+                    sessionStorage.setItem("data", JSON.stringify(customerData));
                   } else {
                     setEmailError(false);
                     setEmailErrorMessage("");
@@ -114,8 +120,10 @@ const Forms = () => {
                     onChange={(value) => {
                       if (value !== null) {
                         setNewDOB(
-                          `${value.day()}/${value.month() + 1}/${value.year()}`
+                          `${value.year()}-${value.month() + 1}-${value.day()}`
                         );
+                        customerData.DOB = `${value.year()}-${value.month() + 1}-${value.day()}`
+                        sessionStorage.setItem("data", JSON.stringify(customerData));
                       }
                     }}
                   />
@@ -130,7 +138,7 @@ const Forms = () => {
                   enqueueSnackbar("Personal information successfully changed", {
                     variant: "success",
                   });
-                  router.push("/");
+                  router.push("/account");
                 } else {
                   enqueueSnackbar(
                     "Please ensure the fields are properly filled and try submitting again",
