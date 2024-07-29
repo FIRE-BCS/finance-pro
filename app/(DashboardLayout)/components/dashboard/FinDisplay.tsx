@@ -17,7 +17,7 @@ const FinDisplay: React.FC<Props> = ({ title }) => {
   useEffect(() => {
     const fetchAmount = async () => {
       const data = window.sessionStorage.getItem("data");
-      const customerData = data ? JSON.parse(data) : { id: 0 };
+      const customerData = data ? JSON.parse(data) : {};
 
       let fetchedAmount = 0;
       if (title === "Savings") {

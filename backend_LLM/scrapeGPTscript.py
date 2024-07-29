@@ -10,11 +10,14 @@ from langchain_community.vectorstores import Chroma
 from datetime import datetime
 import time
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(threadName)s - %(levelname)s - %(message)s')
 
 app = Flask(__name__)
+CORS(app) 
+
 
 # Proxy init
 def get_proxy():
@@ -161,6 +164,7 @@ def generate_answer_local(question, context):
     You are an agent for Standard Chartered Bank. 
     If you don't know the answer, just say that you don't know, don't try to make up an answer.
     Answer only factual information based on the context.
+    Be concise and to the point.
     Context: {context}.\n
     Question: {question}
     Helpful Answer:"""

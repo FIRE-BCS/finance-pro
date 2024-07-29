@@ -91,7 +91,6 @@ export default function SignIn() {
         enqueueSnackbar("Login successful", { variant: "success" });
       } catch (error) {
         enqueueSnackbar("Login Failed", { variant: "error" });
-      } finally {
         setLoading(false);
       }
     }
@@ -192,7 +191,7 @@ export default function SignIn() {
                 </Dialog>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
