@@ -120,9 +120,9 @@ const Forms = () => {
                     onChange={(value) => {
                       if (value !== null) {
                         setNewDOB(
-                          `${value.year()}-${value.month() + 1}-${value.day()}`
+                          `${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`
                         );
-                        customerData.DOB = `${value.year()}-${value.month() + 1}-${value.day()}`
+                        customerData.DOB = `${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`
                         sessionStorage.setItem("data", JSON.stringify(customerData));
                       }
                     }}

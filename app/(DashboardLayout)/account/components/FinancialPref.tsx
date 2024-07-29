@@ -30,6 +30,12 @@ export default function FinancialInfo() {
               <Typography component="legend">
                 Financial Goal: {customerData.financialGoal}
               </Typography>
+              <Typography component="legend">
+                Goal Amount: ${customerData.goalAmount}
+              </Typography>
+              <Typography component="legend">
+                Goal End Date: {customerData.goalEndDate}
+              </Typography>
             </Box>
             <br />
             <Button
