@@ -14,12 +14,12 @@ Finance chatbot that provides personalised advice to bank customers
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/projectname.git
+    git clone https://github.com/FIRE-BCS/finance-pro.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd projectname
+    cd finance-pro
     ```
 
 3. Install the dependencies:
@@ -30,8 +30,6 @@ Finance chatbot that provides personalised advice to bank customers
     ```
 
 ## Usage
-
-To view main branch online: https://main--outliers-financepro.netlify.app/
 
 To start the development server, run:
 ```bash
