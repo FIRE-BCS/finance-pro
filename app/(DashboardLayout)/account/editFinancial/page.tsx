@@ -8,6 +8,10 @@ import {
   InputAdornment,
   MenuItem,
 } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import "dayjs/locale/en-gb";
 import BaseCard from "../../components/shared/BaseCard";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
@@ -19,12 +23,16 @@ export default function FinancialsForm() {
   const [newFD, setNewFD] = useState("");
   const [newSavings, setNewSavings] = useState("");
   const [newIncome, setNewIncome] = useState("");
+  const [newGoalAmount, setNewGoalAmount] = useState("");
+  const [newGoalEndDate, setNewGoalEndDate] = useState("");
   const [tradingError, setTradingError] = useState(false);
   const [loanError, setLoanError] = useState(false);
   const [investmentError, setInvestmentError] = useState(false);
   const [fdError, setFDError] = useState(false);
   const [savingsError, setSavingsError] = useState(false);
   const [incomeError, setIncomeError] = useState(false);
+  const [goalAmountError, setGoalAmountError] = useState(false);
+  const [goalAmountMessage, setGoalAmountMessage] = useState("");
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
@@ -63,6 +71,10 @@ export default function FinancialsForm() {
   } else {
     customerData = {};
   }
+
+  const goalEndDateDayjs = customerData.goalEndDate
+    ? dayjs(customerData.goalEndDate)
+    : null;
 
   return (
     <Grid container spacing={3}>
@@ -184,7 +196,7 @@ export default function FinancialsForm() {
                     ? "Savings account number must begin with '555' with 6 other digits following it"
                     : ""
                 }
-              />
+              />*/}
               <TextField
                 id="income-yearly"
                 label="Yearly Income"
@@ -209,7 +221,7 @@ export default function FinancialsForm() {
                     ? "Yearly income field must only consist of numerical digits"
                     : ""
                 }
-              /> */}
+              />
               <TextField
                 id="risk-tolerance"
                 select
@@ -217,7 +229,7 @@ export default function FinancialsForm() {
                 variant="outlined"
                 defaultValue={customerData.riskTolerance}
                 onChange={(e) => {
-                  customerData.riskTolerance = e.target.value
+                  customerData.riskTolerance = e.target.value;
                   sessionStorage.setItem("data", JSON.stringify(customerData));
                 }}
               >
@@ -234,7 +246,7 @@ export default function FinancialsForm() {
                 variant="outlined"
                 defaultValue={customerData.financialGoal}
                 onChange={(e) => {
-                  customerData.financialGoal = e.target.value
+                  customerData.financialGoal = e.target.value;
                   sessionStorage.setItem("data", JSON.stringify(customerData));
                 }}
               >
@@ -244,19 +256,76 @@ export default function FinancialsForm() {
                   </MenuItem>
                 ))}
               </TextField>
+              <TextField
+                id="goal-amount"
+                label="Goal Amount"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+                defaultValue={customerData.goalAmount}
+                onChange={(e) => {
+                  if (e.target.value === "") {
+                    setGoalAmountError(true);
+                    setGoalAmountMessage("Goal Amount field cannot be empty");
+                  } else if (
+                    e.target.value !== "" &&
+                    !/^\d+$/.test(e.target.value)
+                  ) {
+                    setGoalAmountError(true);
+                    setGoalAmountMessage(
+                      "Goal Amount field must only consist of numerical digits"
+                    );
+                  } else {
+                    setGoalAmountError(false);
+                    setNewGoalAmount(e.target.value);
+                    customerData.goalAmount = e.target.value;
+                    sessionStorage.setItem(
+                      "data",
+                      JSON.stringify(customerData)
+                    );
+                  }
+                }}
+                error={goalAmountError}
+                helperText={goalAmountError ? goalAmountMessage : ""}
+              />
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale="en-gb"
+              >
+                <Stack>
+                  <DatePicker
+                    label="Goal End Date"
+                    slotProps={{ textField: { fullWidth: true } }}
+                    defaultValue={goalEndDateDayjs}
+                    onChange={(value) => {
+                      if (value !== null) {
+                        setNewGoalEndDate(
+                          `${value.format("YYYY")}-${value.format(
+                            "MM"
+                          )}-${value.format("DD")}`
+                        );
+                        customerData.goalEndDate = `${value.format(
+                          "YYYY"
+                        )}-${value.format("MM")}-${value.format("DD")}`;
+                        sessionStorage.setItem(
+                          "data",
+                          JSON.stringify(customerData)
+                        );
+                      }
+                    }}
+                  />
+                </Stack>
+              </LocalizationProvider>
             </Stack>
             <br />
             <Button
+              variant="contained"
               onClick={(e) => {
                 e.preventDefault();
-                if (
-                  !tradingError &&
-                  !loanError &&
-                  !fdError &&
-                  !investmentError &&
-                  !savingsError &&
-                  !incomeError
-                ) {
+                if (!goalAmountError) {
                   enqueueSnackbar(
                     "Financial information successfully changed",
                     { variant: "success" }

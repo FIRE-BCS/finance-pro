@@ -38,14 +38,6 @@ export default async function PersonalInfo() {
               </Typography>
             </Box>
             <br />
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ marginTop: "10px" }}
-              onClick={() => router.push("/account/editPersonal")}
-            >
-              Edit
-            </Button>
           </Box>
         </BaseCard>
       </Grid>

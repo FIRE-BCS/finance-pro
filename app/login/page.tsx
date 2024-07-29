@@ -85,6 +85,8 @@ export default function SignIn() {
         setLoading(true);
         await login(email, password);
         const customerData = await getUserData(email);
+        customerData.goalAmount = "50000"
+        customerData.goalEndDate = "2024-11-30"
         window.sessionStorage.setItem("data", JSON.stringify(customerData));
 
         router.push("/");
