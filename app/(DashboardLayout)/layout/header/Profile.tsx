@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Menu,
@@ -34,14 +34,15 @@ const Profile = () => {
     enqueueSnackbar("Logout successful", { variant: "success" });
   };
 
-  let customerData;
-
-  if (typeof window !== "undefined") {
-    const data = window.sessionStorage.getItem("data");
-    customerData = data ? JSON.parse(data) : {};
-  } else {
-    customerData = {};
-  }
+  const [name, setName] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const data = window.sessionStorage.getItem("data");
+      setName(data ? JSON.parse(data).firstName : "");
+    } else {
+      setName("");
+    }
+  }, []);
 
   return (
     <Box>
@@ -82,7 +83,7 @@ const Profile = () => {
               ml: 1,
             }}
           >
-            {customerData.firstName}
+            {name}
           </Typography>
           <IconChevronDown width="20" height="20" />
         </Box>
