@@ -56,19 +56,23 @@ export default function Forms(){
   const [income, setIncome] = useState("");
   const [userRiskTolerance, setUserRiskTolerance] = useState("");
   const [userFinancialGoal, setUserFinancialGoal] = useState("");
-  const [tradingError, setTradingError] = useState(false);
-  const [loanError, setLoanError] = useState(false);
-  const [investmentError, setInvestmentError] = useState(false);
-  const [fdError, setFDError] = useState(false);
-  const [savingsError, setSavingsError] = useState(false);
-  const [incomeError, setIncomeError] = useState(false);
-  const [incomeErrorMessage, setIncomeErrorMessage] = useState("");
+  const [goalAmount, setGoalAmount] = useState("");
+  const [goalEndDate, setGoalEndDate] = useState("");
+  // const [tradingError, setTradingError] = useState(false);
+  // const [loanError, setLoanError] = useState(false);
+  // const [investmentError, setInvestmentError] = useState(false);
+  // const [fdError, setFDError] = useState(false);
+  // const [savingsError, setSavingsError] = useState(false);
+  // const [incomeError, setIncomeError] = useState(false);
+  // const [incomeErrorMessage, setIncomeErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
   const [error2, setError2] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [error2Message, setError2Message] = useState("");
+  const [goalAmountError, setGoalAmountError] = useState(false);
+  const [goalAmountMessage, setGoalAmountMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -203,7 +207,7 @@ export default function Forms(){
                       slotProps={{ textField: { fullWidth: true } }} 
                       onChange={(value) => {
                         if(value!==null){
-                          setDOB(`${value.day()}/${value.month() + 1}/${value.year()}`);
+                          setDOB(`${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`);
                         }
                       }}
                     />
@@ -293,7 +297,7 @@ export default function Forms(){
               <BaseCard title="Financial Information">
                 <>
                 <Stack spacing={3}>
-                <TextField
+                {/* <TextField
                     id="account-trading"
                     label="Trading Account No."
                     variant="outlined"
@@ -403,7 +407,7 @@ export default function Forms(){
                     }}
                     error={incomeError}
                     helperText={incomeError? incomeErrorMessage:""}
-                  />
+                  /> */}
                   <TextField
                     required
                     id="risk-tolerance"
@@ -432,6 +436,53 @@ export default function Forms(){
                         </MenuItem>
                     ))}
                   </TextField>
+                  <TextField
+                id="goal-amount"
+                label="Goal Amount"
+                variant="outlined"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+                onChange={(e) => {
+                  if (e.target.value === ""){
+                    setGoalAmountError(true)
+                    setGoalAmountMessage("Goal Amount field cannot be empty")
+                  }
+                  else if (e.target.value !== "" && !/^\d+$/.test(e.target.value)) {
+                    setGoalAmountError(true);
+                    setGoalAmountMessage("Goal Amount field must only consist of numerical digits")
+                  } else {
+                    setGoalAmountError(false);
+                    setGoalAmount(e.target.value);
+                  }
+                }}
+                error={goalAmountError}
+                helperText={
+                  goalAmountError
+                    ? goalAmountMessage
+                    : ""
+                }
+              />
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale="en-gb"
+              >
+                <Stack>
+                  <DatePicker
+                    label="Goal End Date"
+                    slotProps={{ textField: { fullWidth: true } }}
+                    onChange={(value) => {
+                      if (value !== null) {
+                        setGoalEndDate(
+                          `${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`
+                        );
+                      }
+                    }}
+                  />
+                </Stack>
+              </LocalizationProvider>
                 </Stack>
                 </>
               </BaseCard>
@@ -456,15 +507,18 @@ export default function Forms(){
                     && password !== ""
                     && !error2
                     && confirmPassword !== ""
-                    && !tradingError
-                    && !loanError
-                    && !fdError
-                    && !investmentError
-                    && !savingsError
-                    && !incomeError
-                    && income !== ""
+                    // && !tradingError
+                    // && !loanError
+                    // && !fdError
+                    // && !investmentError
+                    // && !savingsError
+                    // && !incomeError
+                    // && income !== ""
                     && userRiskTolerance !== ""
                     && userFinancialGoal !== ""
+                    && goalAmount !== ""
+                    && !goalAmountError
+                    && goalEndDate !== ""
                   ){
                   enqueueSnackbar("Sucessfully Registered!", { variant: "success" });
                   router.push("/login")
