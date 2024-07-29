@@ -161,14 +161,15 @@ def scrape_site_links(start_url, proxy):
 def generate_answer_local(question, context):
     logging.info("LLM is generating answer ...")
     prompt = f"""Use the following pieces of context to answer the question at the end. 
-    You are an agent for Standard Chartered Bank. 
+    You are an agent for Standard Chartered Bank in Singapore. 
+    Only limit answers based on Standard Chartered Bank from Singapore. 
     If you don't know the answer, just say that you don't know, don't try to make up an answer.
     Answer only factual information based on the context.
-    Be concise and to the point.
+    Give answers in point form.
     Context: {context}.\n
     Question: {question}
     Helpful Answer:"""
-    response = ollama.chat(model='qwen:1.8b', messages=[
+    response = ollama.chat(model='phi3', messages=[
         {'role': 'system', 'content': 'You are a question answering AI Bot for Standard Chartered Bank that uses context from the user prompt to answer the question.'},
         {'role': 'user', 'content': prompt},
     ])
@@ -212,8 +213,6 @@ def ask_question():
     website_text = analyze_website(start_url)
     context = get_context(question, website_text)
     result = generate_answer_local(question, context)
-    # result = generate_answer_pplx(question, context)
-
     return jsonify({"answer": result})
 
 if __name__ == '__main__':
