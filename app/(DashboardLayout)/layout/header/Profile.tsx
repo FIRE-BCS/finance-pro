@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Menu,
-  Avatar,
   Typography,
   Divider,
   Button,
@@ -59,14 +58,6 @@ const Profile = () => {
         }}
         onClick={handleClick2}
       >
-        <Avatar
-          src={"/images/users/user2.jpg"}
-          alt={"ProfileImg"}
-          sx={{
-            width: 30,
-            height: 30,
-          }}
-        />
         <Box
           sx={{
             display: {
