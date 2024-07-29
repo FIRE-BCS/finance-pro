@@ -32,7 +32,7 @@ export default function FinancialsForm() {
   const [savingsError, setSavingsError] = useState(false);
   const [incomeError, setIncomeError] = useState(false);
   const [goalAmountError, setGoalAmountError] = useState(false);
-  const [goalAmountMessage, setGoalAmountMessage] = useState("")
+  const [goalAmountMessage, setGoalAmountMessage] = useState("");
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
@@ -72,7 +72,9 @@ export default function FinancialsForm() {
     customerData = {};
   }
 
-  const goalEndDateDayjs = customerData.goalEndDate ? dayjs(customerData.goalEndDate) : null;
+  const goalEndDateDayjs = customerData.goalEndDate
+    ? dayjs(customerData.goalEndDate)
+    : null;
 
   return (
     <Grid container spacing={3}>
@@ -194,7 +196,7 @@ export default function FinancialsForm() {
                     ? "Savings account number must begin with '555' with 6 other digits following it"
                     : ""
                 }
-              />
+              />*/}
               <TextField
                 id="income-yearly"
                 label="Yearly Income"
@@ -219,7 +221,7 @@ export default function FinancialsForm() {
                     ? "Yearly income field must only consist of numerical digits"
                     : ""
                 }
-              /> */}
+              />
               <TextField
                 id="risk-tolerance"
                 select
@@ -227,7 +229,7 @@ export default function FinancialsForm() {
                 variant="outlined"
                 defaultValue={customerData.riskTolerance}
                 onChange={(e) => {
-                  customerData.riskTolerance = e.target.value
+                  customerData.riskTolerance = e.target.value;
                   sessionStorage.setItem("data", JSON.stringify(customerData));
                 }}
               >
@@ -244,7 +246,7 @@ export default function FinancialsForm() {
                 variant="outlined"
                 defaultValue={customerData.financialGoal}
                 onChange={(e) => {
-                  customerData.financialGoal = e.target.value
+                  customerData.financialGoal = e.target.value;
                   sessionStorage.setItem("data", JSON.stringify(customerData));
                 }}
               >
@@ -265,26 +267,29 @@ export default function FinancialsForm() {
                 }}
                 defaultValue={customerData.goalAmount}
                 onChange={(e) => {
-                  if (e.target.value === ""){
-                    setGoalAmountError(true)
-                    setGoalAmountMessage("Goal Amount field cannot be empty")
-                  }
-                  else if (e.target.value !== "" && !/^\d+$/.test(e.target.value)) {
+                  if (e.target.value === "") {
                     setGoalAmountError(true);
-                    setGoalAmountMessage("Goal Amount field must only consist of numerical digits")
+                    setGoalAmountMessage("Goal Amount field cannot be empty");
+                  } else if (
+                    e.target.value !== "" &&
+                    !/^\d+$/.test(e.target.value)
+                  ) {
+                    setGoalAmountError(true);
+                    setGoalAmountMessage(
+                      "Goal Amount field must only consist of numerical digits"
+                    );
                   } else {
                     setGoalAmountError(false);
                     setNewGoalAmount(e.target.value);
-                    customerData.goalAmount = e.target.value
-                    sessionStorage.setItem("data", JSON.stringify(customerData));
+                    customerData.goalAmount = e.target.value;
+                    sessionStorage.setItem(
+                      "data",
+                      JSON.stringify(customerData)
+                    );
                   }
                 }}
                 error={goalAmountError}
-                helperText={
-                  goalAmountError
-                    ? goalAmountMessage
-                    : ""
-                }
+                helperText={goalAmountError ? goalAmountMessage : ""}
               />
               <LocalizationProvider
                 dateAdapter={AdapterDayjs}
@@ -298,10 +303,17 @@ export default function FinancialsForm() {
                     onChange={(value) => {
                       if (value !== null) {
                         setNewGoalEndDate(
-                          `${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`
+                          `${value.format("YYYY")}-${value.format(
+                            "MM"
+                          )}-${value.format("DD")}`
                         );
-                        customerData.goalEndDate = `${value.format("YYYY")}-${value.format("MM")}-${value.format("DD")}`
-                        sessionStorage.setItem("data", JSON.stringify(customerData));
+                        customerData.goalEndDate = `${value.format(
+                          "YYYY"
+                        )}-${value.format("MM")}-${value.format("DD")}`;
+                        sessionStorage.setItem(
+                          "data",
+                          JSON.stringify(customerData)
+                        );
                       }
                     }}
                   />
@@ -310,17 +322,10 @@ export default function FinancialsForm() {
             </Stack>
             <br />
             <Button
+              variant="contained"
               onClick={(e) => {
                 e.preventDefault();
-                if (
-                  // !tradingError &&
-                  // !loanError &&
-                  // !fdError &&
-                  // !investmentError &&
-                  // !savingsError &&
-                  // !incomeError
-                  !goalAmountError
-                ) {
+                if (!goalAmountError) {
                   enqueueSnackbar(
                     "Financial information successfully changed",
                     { variant: "success" }

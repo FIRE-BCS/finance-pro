@@ -25,6 +25,9 @@ export default function FinancialInfo() {
               }}
             >
               <Typography component="legend">
+                Annual Income: ${customerData.income}
+              </Typography> 
+              <Typography component="legend">
                 Risk Tolerance: {customerData.riskTolerance}{" "}
               </Typography>
               <Typography component="legend">
