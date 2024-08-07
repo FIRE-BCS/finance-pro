@@ -222,9 +222,18 @@ def generate_answer_local(question, context):
     prompt = f"""Use the following pieces of context to answer the question at the end. 
     You are an agent for Standard Chartered Bank in Singapore. 
     Only limit answers based on Standard Chartered Bank from Singapore. 
-    If you don't know the answer, just say that you don't know, don't try to make up an answer.
-    Answer only factual information based on the context.
-    Give answers in point form.
+    If you don't know the answer, don't make up an answer.
+    You are speaking to a customer and his name is Tom.
+    Savings Balance: 9983.13.
+    Fixed Deposit Balance: 200000.
+    Loan Balance: 15000.
+    Investment Balance: 1350.
+    Trading Balance: 110.87.
+    Annual Income: 76000.
+    Risk Tolerance: Low.
+    Financial Goal: Marriage.
+    Financial goal amount: 50000
+    Financial goal target date: 30 November 2024
     Question: {question}
     Helpful Answer:"""
     response = ollama.chat(model='llama3', messages=[
