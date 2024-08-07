@@ -225,10 +225,9 @@ def generate_answer_local(question, context):
     If you don't know the answer, just say that you don't know, don't try to make up an answer.
     Answer only factual information based on the context.
     Give answers in point form.
-    Context: {context}.\n
     Question: {question}
     Helpful Answer:"""
-    response = ollama.chat(model='phi3', messages=[
+    response = ollama.chat(model='llama3', messages=[
         {'role': 'system', 'content': 'You are a question answering AI Bot for Standard Chartered Bank that uses context from the user prompt to answer the question.'},
         {'role': 'user', 'content': prompt},
     ])
