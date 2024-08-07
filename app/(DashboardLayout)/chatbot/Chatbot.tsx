@@ -66,7 +66,7 @@ export default function ChatbotUI() {
         { type: "user", text: message },
       ]);
       try {
-        const response = await axios.post("http://localhost:5000/ask", {
+        const response = await axios.post("http://127.0.0.1:5000/ask", {
           question: message,
           url: "https://www.sc.com/sg/",
         });
